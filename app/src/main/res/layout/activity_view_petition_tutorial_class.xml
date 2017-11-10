@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="pup.com.gsouapp.Activities.ViewServiceApplicationActivity">
+
+    <include layout="@layout/general_service_application_details" />
+
+    <TextView
+        android:id="@+id/view_ptc_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subject" />
+
+    <TextView
+        android:id="@+id/view_ptc_campus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Campus" />
+
+    <TextView
+        android:id="@+id/view_ptc_involved_students_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Count of Involved Students" />
+
+    <TextView
+        android:id="@+id/view_ptc_involved_students"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Involved Students" />
+
+    <TextView
+        android:id="@+id/view_ptc_approved_invitees_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Approved Invitees Count" />
+
+    <TextView
+        android:id="@+id/view_ptc_approved_invitees"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Approved Invitees" />
+
+    <TextView
+        android:id="@+id/view_ptc_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reason" />
+
+</LinearLayout>

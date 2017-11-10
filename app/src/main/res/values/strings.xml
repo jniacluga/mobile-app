@@ -1,0 +1,85 @@
+<resources>
+    <string name="app_name">GSOUApp</string>
+
+    <string name="home">Home</string>
+    <string name="schedules">Schedules</string>
+    <string name="grades">Grades</string>
+    <string name="service_application">Service Application</string>
+    <string name="thesis_dissertation">Thesis Dissertation</string>
+
+    <string name="error_required_value">Required</string>
+
+    <string name="web_server">http://192.168.0.13:8012/GSOU_HMVC/api/</string>
+    <string name="login">login/matchLoginCredentials/</string>
+    <string name="service_application_addSubject">serviceapplications/addsubject/</string>
+    <string name="service_application_changeSubject">serviceapplications/changesubject/</string>
+    <string name="service_application_dropSubject">serviceapplications/dropsubject/</string>
+    <string name="service_application_overloadSubject">serviceapplications/overloadsubject/</string>
+    <string name="service_application_leaveOfAbsence">serviceapplications/leaveofabsence/</string>
+    <string name="service_application_completion">serviceapplications/completion/</string>
+    <string name="service_application_comprehensiveExam">serviceapplications/comprehensiveexam/</string>
+    <string name="service_application_graduation">serviceapplications/graduation/</string>
+    <string name="service_application_petitionTutorial">serviceapplications/petitiontutorialclass/</string>
+    <string name="service_application_acadRecords">serviceapplications/academicrecords/</string>
+    <string name="paper_status">thesisstatus/getPaperStatus/</string>
+    <string name="student_thesis_eligibility">thesisstatus/getStudentThesisEligibility/</string>
+    <string name="thesis_status">thesisstatus/loadThesisStatus/</string>
+    <string name="get_grades">grades/loadGrades/</string>
+    <string name="get_school_years">schedule/getSchoolYears/</string>
+    <string name="get_semesters">schedule/getSemesters/</string>
+    <string name="load_schedule">schedule/loadSchedule/</string>
+    <string name="load_home">home/loadHome/</string>
+
+    <string name="status_ongoing">Ongoing Applications</string>
+    <string name="status_closed">Closed Applications</string>
+    <string name="status_cancelled">Cancelled Applications</string>
+    <string name="status_all">All Applications</string>
+
+    <string name="type_add">Add Subject</string>
+    <string name="type_change">Change Subject</string>
+    <string name="type_drop">Drop Subject</string>
+    <string name="type_overload">Overload Subject</string>
+    <string name="type_loa">Leave of Absence</string>
+    <string name="type_completion">Completion</string>
+    <string name="type_compre">Comprehensive Exam</string>
+    <string name="type_grad">Graduation</string>
+    <string name="type_petition">Petition/Tutorial Class</string>
+    <string name="type_acadrec">Academic Records</string>
+
+    <string-array name="status_filters">
+        <item>@string/status_ongoing</item>
+        <item>@string/status_closed</item>
+        <item>@string/status_cancelled</item>
+        <item>@string/status_all</item>
+    </string-array>
+
+    <string-array name="service_application_filters">
+        <item>@string/type_add</item>
+        <item>@string/type_change</item>
+        <item>@string/type_drop</item>
+        <item>@string/type_overload</item>
+        <item>@string/type_loa</item>
+        <item>@string/type_completion</item>
+        <item>@string/type_compre</item>
+        <item>@string/type_grad</item>
+        <item>@string/type_petition</item>
+        <item>@string/type_acadrec</item>
+    </string-array>
+
+    <string-array name="service_application_types">
+        <item>Add Subject</item>
+        <item>Change Subject</item>
+        <item>Drop Subject</item>
+        <item>Overload Subject</item>
+        <item>Leave of Absence</item>
+        <item>Completion</item>
+        <item>Comprehensive Exam</item>
+        <item>Graduation</item>
+        <item>Petition/Tutorial Class</item>
+        <item>Academic Records</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

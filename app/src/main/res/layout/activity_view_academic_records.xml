@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="pup.com.gsouapp.Activities.ViewServiceApplicationActivity">
+
+    <include layout="@layout/general_service_application_details" />
+
+    <TextView
+        android:id="@+id/view_ar_requested_documents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Requested Document" />
+
+    <TextView
+        android:id="@+id/view_ar_record_requested_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Requested Document Count" />
+
+    <TextView
+        android:id="@+id/view_ar_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reason" />
+
+</LinearLayout>

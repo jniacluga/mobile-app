@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/view_application_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Application Number" />
+
+    <TextView
+        android:id="@+id/view_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status" />
+
+    <TextView
+        android:id="@+id/view_approval_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Approval Level / Number of Approvers" />
+
+    <TextView
+        android:id="@+id/view_date_requested"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date Requested" />
+
+    <TextView
+        android:id="@+id/view_school_year_semester"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="School Year and Semester Requested" />
+
+    <EditText
+        android:id="@+id/editText22"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="hidden ID" />
+
+    <EditText
+        android:id="@+id/editText23"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="hidden TYPE" />
+</LinearLayout>

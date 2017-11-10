@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="pup.com.gsouapp.Activities.ViewServiceApplicationActivity">
+
+    <include layout="@layout/general_service_application_details" />
+
+    <TextView
+        android:id="@+id/view_completion_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Type" />
+
+    <TextView
+        android:id="@+id/view_completion_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subject" />
+
+    <TextView
+        android:id="@+id/view_completion_issue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Issue" />
+
+    <TextView
+        android:id="@+id/view_completion_credited_as"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Credited as" />
+
+    <TextView
+        android:id="@+id/view_completion_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Details" />
+
+    <TextView
+        android:id="@+id/view_completion_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reason" />
+
+</LinearLayout>

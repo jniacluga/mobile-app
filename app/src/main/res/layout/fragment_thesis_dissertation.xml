@@ -1,0 +1,229 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="pup.com.gsouapp.MainFragments.ThesisDissertationFragment">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/thesis_dissertation" />
+
+    <LinearLayout
+        android:id="@+id/layoutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/btnRegistration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/btnProposalDefense"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/btnPreoralDefense"
+            android:layout_width="69dp"
+            android:layout_height="wrap_content"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/btnOralDefense"
+            android:layout_width="59dp"
+            android:layout_height="wrap_content"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/btnComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="5" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtVwYet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You are yet to view this. Please check some other time."
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/layoutRegistration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtVwRegistrationYet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You are yet to undergo thesis/dissertation writing. Take and pass the integrated comprehensive examination first." />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutComplete"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtVwCompleteYet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="You are yet to view this. Please check some other time." />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutProposal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtVwPropDefenseLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtVwPropDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtVwPropDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtVwPropCommittee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Committee STAYS" />
+
+        <TableLayout
+            android:id="@+id/tblPropCommittee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/txtVwPropTotalPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Payment" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutPreoral"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtVwPreDefenseLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtVwPreDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtVwPreDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtVwPreCommittee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TableLayout
+            android:id="@+id/tblPreCommittee"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/txtVwPreTotalPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Payment" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutOral"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/txtVwOralDefenseLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtVwOralDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtVwOralDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txtVwOralCommittee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TableLayout
+            android:id="@+id/tblOralCommittee"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/txtVwOralTotalPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total Payment" />
+
+    </LinearLayout>
+
+</LinearLayout>
