@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pup.com.gsouapp.Activities.CreateServiceApplicationActivity;
 import pup.com.gsouapp.Helpers.VolleyClass;
 import pup.com.gsouapp.R;
 import pup.com.gsouapp.Domain.ServiceApplication;
@@ -231,13 +232,13 @@ public class ServiceApplicationFragment extends Fragment {
     }
 
     private void bindViews() {
-        /*createServiceApplicationButton.setOnClickListener(new View.OnClickListener() {
+        createServiceApplicationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), CreateServiceApplicationActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         statusFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
