@@ -37,7 +37,7 @@ import pup.com.gsouapp.Domain.Sy;
 
 public class SchedulesFragment extends Fragment {
 
-    final String SUNDAY = "SUNDAY";
+    final String SUNDAY = "SUNDAYS";
     final String MONDAY = "MONDAY";
     final String TUESDAY = "TUESDAY";
     final String WEDNESDAY = "WEDNESDAY";
