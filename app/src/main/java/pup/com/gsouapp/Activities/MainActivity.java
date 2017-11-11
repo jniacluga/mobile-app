@@ -6,9 +6,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
-import java.net.URL;
-import java.net.URLConnection;
-
 import pup.com.gsouapp.Adapters.FragmentCollectionPagerAdapter;
 import pup.com.gsouapp.MainFragments.GradesFragment;
 import pup.com.gsouapp.MainFragments.HomeFragment;
@@ -31,30 +28,10 @@ public class MainActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        String url = getResources().getString(R.string.web_server);
-//        int timeout = 2;
-
-//        if (isConnectedToServer(url, timeout)) {
-            setContentView(R.layout.activity_main);
-            pageCollectionAdapter = new FragmentCollectionPagerAdapter(getSupportFragmentManager());
-            viewPager = (ViewPager) findViewById(R.id.pager);
-            viewPager.setAdapter(pageCollectionAdapter);
-//        } else {
-//            setContentView(R.layout.no_connection);
-//        }
-    }
-
-    public boolean isConnectedToServer(String url, int timeout) {
-        try{
-            URL myUrl = new URL(url);
-            URLConnection connection = myUrl.openConnection();
-            connection.setConnectTimeout(timeout);
-            connection.connect();
-            return true;
-        } catch (Exception e) {
-            // Handle your exceptions
-            return false;
-        }
+        setContentView(R.layout.activity_main);
+        pageCollectionAdapter = new FragmentCollectionPagerAdapter(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(pageCollectionAdapter);
     }
 
     @Override
