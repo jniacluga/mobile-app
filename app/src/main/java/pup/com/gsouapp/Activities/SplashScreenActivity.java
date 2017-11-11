@@ -14,21 +14,23 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_screen);
 
-        final Intent intent = new Intent(this, MainActivity.class);
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 SharedPreferences sharedPreferences = getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
 
+                Intent intent;
+
                 if (!sharedPreferences.getString("sourceId", "").equals("")) {
-                    startActivity(intent);
+                    intent = new Intent(getApplicationContext(), MainActivity.class);
                 } else {
-                    setContentView(R.layout.activity_splash_screen);
+                    intent = new Intent(getApplicationContext(), LoginActivity.class);
                 }
+
+                startActivity(intent);
             }
-        }, 2500);
+        }, 1000);
     }
 }

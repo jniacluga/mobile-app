@@ -5,17 +5,12 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,27 +24,37 @@ import java.util.Map;
 import pup.com.gsouapp.Domain.Grade;
 import pup.com.gsouapp.Domain.GradePerSySem;
 import pup.com.gsouapp.Adapters.GradesAdapter;
-import pup.com.gsouapp.Helpers.VolleyClass;
+import pup.com.gsouapp.Helpers.AppToServer;
+import pup.com.gsouapp.Helpers.Urls;
+import pup.com.gsouapp.Interfaces.ResponseHandler;
+
 import pup.com.gsouapp.R;
 
-public class GradesFragment extends Fragment {
+public class GradesFragment extends Fragment
+    implements ResponseHandler{
+
+    private static GradesFragment gradesFragment;
 
     private List<GradePerSySem> gradePerSySemList = new ArrayList<>();
     private List<Grade> gradeList = new ArrayList<>();
 
     private ListView listView;
+    private View view;
 
-    RequestQueue queue;
+    Map<String, String> params;
+    SharedPreferences sharedPreferences;
 
     private OnFragmentInteractionListener mListener;
 
-    public GradesFragment() {
-
-    }
+    public GradesFragment() { }
 
     public static GradesFragment getInstance() {
-        GradesFragment fragment = new GradesFragment();
-        return fragment;
+
+        if (gradesFragment == null) {
+            gradesFragment = new GradesFragment();
+        }
+
+        return gradesFragment;
     }
 
     @Override
@@ -60,93 +65,79 @@ public class GradesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_grades, container, false);
 
-        queue = VolleyClass.getInstance(getContext()).getRequestQueue();
-        populateList(view);
-
+        view = inflater.inflate(R.layout.fragment_grades, container, false);
+        sharedPreferences = getContext().getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
+        callToServer();
         return view;
     }
 
-    private void populateList(final View view) {
+    public void callToServer() {
 
-        StringRequest request = new StringRequest(Request.Method.POST, getResources().getString(R.string.web_server) +
-                getResources().getString(R.string.get_grades), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+        params = new HashMap<>();
+        params.put("studentNumber", sharedPreferences.getString("sourceId", ""));
 
-                if (!response.equals("\r\n\"\"")) {
+        AppToServer.sendRequest(getContext(), Urls.GRADES, this, params);
+    }
 
-                    try {
+    @Override
+    public void handleResponse(String response) {
 
-                        gradePerSySemList.clear();
-                        gradeList.clear();
+        if (!response.equals("\r\n\"\"")) {
 
-                        JSONArray arr = new JSONArray(response);
-                        Grade grade;
-                        GradePerSySem gradePerSySem = new GradePerSySem();
-                        String sySem = "";
+            try {
 
-                        for (int i = 0; i < arr.length(); i++) {
-                            JSONObject obj = arr.getJSONObject(i);
+                gradePerSySemList.clear();
+                gradeList.clear();
 
-                            /*gradePerSySem.setSySem(obj.getString("sySem"));*/
-                            gradePerSySem.setSy(obj.getString("sy"));
-                            gradePerSySem.setSem(obj.getString("sem"));
+                JSONArray arr = new JSONArray(response);
+                Grade grade;
+                GradePerSySem gradePerSySem = new GradePerSySem();
+                String sySem = "";
 
-                            grade = new Grade(obj.getString("subjectCode"),
-                                    obj.getString("description"),
-                                    obj.getString("faculty"),
-                                    obj.getString("units"),
-                                    obj.getString("sectionCode"),
-                                    obj.getString("finalGrade"),
-                                    obj.getString("status"));
-                            gradeList.add(grade);
+                for (int i = 0; i < arr.length(); i++) {
 
-                            if (!sySem.equals("") && (!obj.getString("sySem").equals(sySem) || i == arr.length() - 1)) {
-                                gradePerSySem.setGradeList(gradeList);
+                    JSONObject obj = arr.getJSONObject(i);
 
-                                gradePerSySemList.add(gradePerSySem);
+                    gradePerSySem.setSy(obj.getString("sy"));
+                    gradePerSySem.setSem(obj.getString("sem"));
 
-                                grade = null;
-                                gradePerSySem = new GradePerSySem();
-                            }
+                    grade = new Grade(obj.getString("subjectCode"),
+                            obj.getString("description"),
+                            obj.getString("faculty"),
+                            obj.getString("units"),
+                            obj.getString("sectionCode"),
+                            obj.getString("finalGrade"),
+                            obj.getString("status"));
+                    gradeList.add(grade);
 
-                            sySem = obj.getString("sySem");
-                        }
+                    if (!sySem.equals("") && (!obj.getString("sySem").equals(sySem) || i == arr.length() - 1)) {
+                        gradePerSySem.setGradeList(gradeList);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        gradePerSySemList.add(gradePerSySem);
+
+                        grade = null;
+                        gradePerSySem = new GradePerSySem();
                     }
+
+                    sySem = obj.getString("sySem");
                 }
 
-                listView = (ListView) view.findViewById(R.id.lvCustomList);
-                listView.setAdapter(new GradesAdapter(getContext(), gradePerSySemList));
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("", error.toString());
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
-                params.put("studentNumber", sharedPreferences.getString("sourceId", ""));
-                return params;
-            }
-        };
-
-        queue.add(request);
-
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
         }
+
+        listView = (ListView) view.findViewById(R.id.lvCustomList);
+        listView.setAdapter(new GradesAdapter(getContext(), gradePerSySemList));
+
     }
+
+    @Override
+    public void handleErrorResponse(VolleyError error) {
+
+    }
+
 
     @Override
     public void onAttach(Context context) {
