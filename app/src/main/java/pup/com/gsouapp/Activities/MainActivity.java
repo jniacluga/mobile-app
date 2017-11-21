@@ -10,6 +10,7 @@ import pup.com.gsouapp.Adapters.FragmentCollectionPagerAdapter;
 import pup.com.gsouapp.MainFragments.GradesFragment;
 import pup.com.gsouapp.MainFragments.HomeFragment;
 import pup.com.gsouapp.MainFragments.SchedulesFragment;
+import pup.com.gsouapp.MainFragments.ServiceApplicationApproverFragment;
 import pup.com.gsouapp.MainFragments.ServiceApplicationFragment;
 import pup.com.gsouapp.MainFragments.ThesisDissertationFragment;
 import pup.com.gsouapp.R;
@@ -19,6 +20,7 @@ public class MainActivity extends FragmentActivity
         SchedulesFragment.OnFragmentInteractionListener,
         GradesFragment.OnFragmentInteractionListener,
         ServiceApplicationFragment.OnFragmentInteractionListener,
+        ServiceApplicationApproverFragment.OnFragmentInteractionListener,
         ThesisDissertationFragment.OnFragmentInteractionListener {
 
     FragmentCollectionPagerAdapter pageCollectionAdapter;
@@ -29,9 +31,15 @@ public class MainActivity extends FragmentActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        pageCollectionAdapter = new FragmentCollectionPagerAdapter(getSupportFragmentManager());
+        pageCollectionAdapter = new FragmentCollectionPagerAdapter(getSupportFragmentManager(), getApplicationContext());
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pageCollectionAdapter);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            int position = extras.getInt("selectedPage");
+            viewPager.setCurrentItem(position);
+        }
     }
 
     @Override

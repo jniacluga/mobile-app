@@ -16,7 +16,7 @@
         android:text="Requested Document" />
 
     <TextView
-        android:id="@+id/view_ar_record_requested_count"
+        android:id="@+id/view_ar_record_number_of_records"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Requested Document Count" />
@@ -26,5 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Reason" />
+
+    <include layout="@layout/general_service_application_buttons" />
 
 </LinearLayout>

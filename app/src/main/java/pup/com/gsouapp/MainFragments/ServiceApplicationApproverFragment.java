@@ -49,7 +49,6 @@ public class ServiceApplicationApproverFragment extends Fragment {
     private Spinner serviceApplicationFilter;
     private Button createServiceApplicationButton;
 
-    private String status;
     private String serviceApplicationType;
 
     SharedPreferences sharedPreferences;
@@ -77,10 +76,11 @@ public class ServiceApplicationApproverFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_service_application, container, false);
 
         statusFilter = (Spinner) view.findViewById(R.id.status_filter);
+        statusFilter.setVisibility(View.GONE);
         serviceApplicationFilter = (Spinner) view.findViewById(R.id.service_application_filter);
         createServiceApplicationButton = (Button) view.findViewById(R.id.create_service_application);
+        createServiceApplicationButton.setVisibility(View.GONE);
 
-        status = "";
         serviceApplicationType = "";
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
@@ -95,12 +95,12 @@ public class ServiceApplicationApproverFragment extends Fragment {
 
         bindViews();
 
-        queue.add(constructStringRequest("", ""));
+        queue.add(constructStringRequest(""));
 
         return view;
     }
 
-    private StringRequest constructStringRequest(final String status, final String type) {
+    private StringRequest constructStringRequest(final String type) {
 
         StringRequest request = new StringRequest(Request.Method.POST, getResources().getString(R.string.web_server) +
                 constructUrl(type), new Response.Listener<String>() {
@@ -139,6 +139,7 @@ public class ServiceApplicationApproverFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("", error.toString());
+                error.printStackTrace();
             }
         }){
             @Override
@@ -147,35 +148,8 @@ public class ServiceApplicationApproverFragment extends Fragment {
 
                 sharedPreferences = getContext().getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
 
-                params.put("studentNumber", sharedPreferences.getString("sourceId", ""));
-                params.put("campusId", sharedPreferences.getString("campusId", ""));
-                params.put("programType", sharedPreferences.getString("programType", ""));
-
-                String appStatus = status;
-
-                if (status.equals("")) {
-                    appStatus = "For Approval";
-                } else {
-                    switch (status) {
-                        case "Ongoing Applications":
-                            appStatus = "For Approval";
-                            break;
-                        case "Closed Applications":
-                            appStatus = "Approved";
-                            break;
-                        case "Cancelled Applications":
-                            appStatus = "Cancelled";
-                            break;
-                        case "All Applications":
-                            appStatus = "All Applications";
-                            break;
-                        default:
-                            appStatus = "All Applications";
-                            break;
-                    }
-                }
-
-                params.put("status", appStatus);
+                params.put("facultyId", sharedPreferences.getString("sourceId", ""));
+                params.put("status", "For Approval");
 
                 return params;
             }
@@ -185,7 +159,19 @@ public class ServiceApplicationApproverFragment extends Fragment {
     }
 
     private String constructSummary(JSONObject obj) throws JSONException {
-        return "That's nice";
+
+        String summary = "";
+
+        switch(obj.getString("type")) {
+            case "Academic Records":
+                summary = obj.getString("numberOfRecordsRequested") + " records including " + obj.getString("requestDocuments").substring(0, 40) + "...";
+                break;
+            default:
+                break;
+        }
+
+        return summary;
+
     }
 
     private String constructUrl(String type) {
@@ -227,41 +213,16 @@ public class ServiceApplicationApproverFragment extends Fragment {
                 url = getResources().getString(R.string.service_application_addSubject);
         }
 
-        return url + "loadAllApplications/";
+        return url + "loadAllApplicationsApprover/";
     }
 
     private void bindViews() {
-        /*createServiceApplicationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), CreateServiceApplicationActivity.class);
-                startActivity(intent);
-            }
-        });*/
-
-        statusFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                status = statusFilter.getItemAtPosition(position).toString();
-                queue.add(constructStringRequest(status, serviceApplicationType));
-                if (adapter != null) {
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         serviceApplicationFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 serviceApplicationType = serviceApplicationFilter.getItemAtPosition(position).toString();
-                queue.add(constructStringRequest(status, serviceApplicationType));
+                queue.add(constructStringRequest(serviceApplicationType));
             }
 
             @Override
@@ -288,16 +249,6 @@ public class ServiceApplicationApproverFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

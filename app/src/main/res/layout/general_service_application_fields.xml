@@ -5,13 +5,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtVwApplicationNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Application Number" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/txtVwSchoolYearSemesterRequested"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="School Year and Semester Requested" />

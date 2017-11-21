@@ -8,11 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.VolleyError;
+
+import pup.com.gsouapp.Interfaces.ResponseHandler;
 import pup.com.gsouapp.R;
 
-public class PetitionTutorialClass extends Fragment {
+public class PetitionTutorialClass extends Fragment
+    implements ResponseHandler{
 
     private OnFragmentInteractionListener mListener;
+    private View view;
 
     public PetitionTutorialClass() { }
 
@@ -29,7 +34,23 @@ public class PetitionTutorialClass extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_petition_tutorial_class, container, false);
+        view = inflater.inflate(R.layout.fragment_petition_tutorial_class, container, false);
+        return view;
+    }
+
+    @Override
+    public void callToServer() {
+
+    }
+
+    @Override
+    public void handleResponse(String response) {
+
+    }
+
+    @Override
+    public void handleErrorResponse(VolleyError error) {
+
     }
 
     public void onButtonPressed(Uri uri) {
