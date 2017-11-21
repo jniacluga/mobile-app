@@ -1,69 +1,204 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="pup.com.gsouapp.ServiceApplicationFragments.AcademicRecords">
 
-    <CheckBox
-        android:id="@+id/checkBox"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Official ToR" />
+        android:layout_height="wrap_content">
 
-    <Spinner
-        android:id="@+id/spinner7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteY="81dp"
+            tools:layout_editor_absoluteX="8dp">
 
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cert of Grades" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cert of Transfer or Honorable Dismissal" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    <CheckBox
-        android:id="@+id/checkBox4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Certification" />
+                    <CheckBox
+                        android:id="@+id/officialTranscriptOfRecordsChkBx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
-    <Spinner
-        android:id="@+id/spinner8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Official Transcript of Records..." />
 
-    <EditText
-        android:id="@+id/editText20"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+                </TableRow>
 
-    <CheckBox
-        android:id="@+id/checkBox5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Cert of true copy" />
+                <Spinner
+                    android:id="@+id/officialTranscriptOfRecordsSpnr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/official_transcript_of_records"/>
 
-    <Spinner
-        android:id="@+id/spinner9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/officialTranscriptOfRecordsOther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="" />
 
-    <EditText
-        android:id="@+id/editText21"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+            </LinearLayout>
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/certificateOfGradesChkBx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Certificate of Grades" />
+
+                </TableRow>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/certificateOfTransferCredentialsChkBx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Certificate of Transfer Credentials/Honorable Dismissal" />
+
+                </TableRow>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/certificationChkBx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Certification..." />
+
+                </TableRow>
+
+                <Spinner
+                    android:id="@+id/certificationSpnr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/certification"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:id="@+id/certifiedTrueCopyChkBx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Certified True Copy..." />
+
+                </TableRow>
+
+                <Spinner
+                    android:id="@+id/certifiedTrueCopySpnr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/certified_true_copy"/>
+
+                <EditText
+                    android:id="@+id/certifiedTrueCopyOther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Purpose of Request" />
+
+                <Spinner
+                    android:id="@+id/purposeOfRequestSpnr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/purpose_of_request"/>
+
+                <EditText
+                    android:id="@+id/purposeOfRequestOther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SUBMIT" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</ScrollView>
