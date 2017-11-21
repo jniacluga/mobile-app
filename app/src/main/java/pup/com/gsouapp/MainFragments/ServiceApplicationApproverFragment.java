@@ -166,6 +166,9 @@ public class ServiceApplicationApproverFragment extends Fragment {
             case "Academic Records":
                 summary = obj.getString("numberOfRecordsRequested") + " records including " + obj.getString("requestDocuments").substring(0, 40) + "...";
                 break;
+            case "Completion":
+                summary = obj.getString("completionType");
+                break;
             default:
                 break;
         }

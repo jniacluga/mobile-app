@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(String response) {
 
-                            if (response != "") {
+                            if (response != "\r\n\"") {
                                 try {
                                     JSONObject obj = new JSONObject(response);
                                     sharedPreferences = getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
@@ -117,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
+                                    finish();
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
