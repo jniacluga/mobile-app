@@ -51,7 +51,7 @@ public class ViewServiceApplicationActivity extends AppCompatActivity {
 
     RequestQueue queue;
 
-    private static final int SERVICE_APPLICATION_INT = 1;
+    private static final int SERVICE_APPLICATION_INT = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class ViewServiceApplicationActivity extends AppCompatActivity {
 //            setUpDropSubject();
 //            setUpOverloadSubject();
 //            setUpLeaveOfAbsence();
-//            setUpCompletion();
+            setUpCompletion();
 //            setUpPetitionTutorialClasses();
             setUpAcademicRecords();
 //            setUpComprehensiveExam();
@@ -85,7 +85,7 @@ public class ViewServiceApplicationActivity extends AppCompatActivity {
         status = (TextView) findViewById(R.id.view_status);
         approvalLevel = (TextView) findViewById(R.id.view_approval_level);
         dateRequested = (TextView) findViewById(R.id.view_date_requested);
-        schoolYearSemester = (TextView) findViewById(R.id.view_school_year_semester);
+//        schoolYearSemester = (TextView) findViewById(R.id.view_school_year_semester);
 
         applicationNumber.setText(applicationNumberStr);
         status.setText(statusStr);
@@ -342,22 +342,59 @@ public class ViewServiceApplicationActivity extends AppCompatActivity {
     }
 
     private void setUpCompletion() {
-        setContentView(R.layout.activity_view_completion);
-//        setUpCommon();
+        final Long appIdFinal = appId;
 
-        TextView type = (TextView) findViewById(R.id.view_completion_type);
-        TextView subject = (TextView) findViewById(R.id.view_completion_subject);
-        TextView issue = (TextView) findViewById(R.id.view_completion_issue);
-        TextView creditedAs = (TextView) findViewById(R.id.view_completion_credited_as);
-        TextView details = (TextView) findViewById(R.id.view_completion_details);
-        TextView reason = (TextView) findViewById(R.id.view_completion_reason);
+        StringRequest request = new StringRequest(Request.Method.POST, getResources().getString(R.string.web_server) +
+                Urls.COMPLETION + "loadSingleApplication/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
-        type.setText("");
-        subject.setText("");
-        issue.setText("");
-        creditedAs.setText("");
-        details.setText("");
-        reason.setText("");
+                if (!response.equals("\r\n\"\"")) {
+
+                    try {
+                        JSONArray arr = new JSONArray(response);
+
+                        setContentView(R.layout.activity_view_completion);
+
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject obj = arr.getJSONObject(i);
+
+                            TextView type = (TextView) findViewById(R.id.view_completion_type);
+                            TextView subject = (TextView) findViewById(R.id.view_completion_subject);
+                            TextView issue = (TextView) findViewById(R.id.view_completion_issue);
+                            TextView creditedAs = (TextView) findViewById(R.id.view_completion_credited_as);
+                            TextView details = (TextView) findViewById(R.id.view_completion_details);
+                            TextView reason = (TextView) findViewById(R.id.view_completion_reason);
+
+                            type.setText(obj.getString("completionType"));
+                            subject.setText(obj.getString("subject"));
+                            issue.setText(obj.getString("issue"));
+                            creditedAs.setText(obj.getString("creditedAs"));
+                            details.setText(obj.getString("details"));
+                            reason.setText(obj.getString("reason"));
+
+                            setUpCommon(obj.getString("id"), obj.getString("status"), obj.getString("approvalLevel") + "/" + obj.getString("numberOfApprovers"), obj.getString("dateRequested"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("", error.toString());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("appId", appIdFinal.toString());
+                return params;
+            }
+        };
+
+        queue.add(request);
     }
 
     private void setUpPetitionTutorialClasses() {

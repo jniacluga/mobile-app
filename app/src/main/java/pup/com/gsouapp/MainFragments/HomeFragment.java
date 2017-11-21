@@ -103,6 +103,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 sharedPreferences.edit().clear().commit();
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
             }
         });
 

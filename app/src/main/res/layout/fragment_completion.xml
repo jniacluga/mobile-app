@@ -6,61 +6,60 @@
     tools:context="pup.com.gsouapp.ServiceApplicationFragments.Completion">
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/applicationFor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/application_for"/>
+
+    <Spinner
+        android:id="@+id/completionSubject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Spinner
-        android:id="@+id/spinner4"
+        android:id="@+id/reportedAs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Spinner
-        android:id="@+id/spinner5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:entries="@array/reported_as"/>
 
     <EditText
-        android:id="@+id/editText15"
+        android:id="@+id/reportedAsOther"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="" />
 
     <EditText
-        android:id="@+id/editText16"
+        android:id="@+id/cp_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textMultiLine" />
 
     <Spinner
-        android:id="@+id/spinner6"
+        android:id="@+id/beCreditedAsOne"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:entries="@array/be_credited_as_one"/>
 
     <EditText
-        android:id="@+id/editText17"
+        android:id="@+id/beCreditedDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="textPersonName"/>
 
     <EditText
-        android:id="@+id/editText18"
+        android:id="@+id/nameTo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="numberDecimal"/>
 
-    <EditText
-        android:id="@+id/editText19"
+    <Button
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="SUBMIT" />
 </LinearLayout>

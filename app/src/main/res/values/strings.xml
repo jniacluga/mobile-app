@@ -113,6 +113,25 @@
         <item>@string/others</item>
     </string-array>
 
+    <string-array name="application_for">
+        <item>Completion of Incomplete Grade</item>
+        <item>Late Reporting of Grades</item>
+        <item>Correction of Entry</item>
+        <item>Correction of Name</item>
+    </string-array>
+
+    <string-array name="reported_as">
+        <item>Incomplete</item>
+        <item>No grade</item>
+        <item>@string/others</item>
+    </string-array>
+
+    <string-array name="be_credited_as_one">
+        <item>Who has completed all requirements</item>
+        <item>Who has "No grade" in the grade sheet/s</item>
+        <item>Whose name in the grade sheet/s be corrected</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -23,5 +23,7 @@ public class Urls {
     public final static String SCHEDULE = "schedule/loadSchedule/";
     public final static String HOME = "home/loadHome/";
 
+    public static final String GET_CURRENTLY_ENROLLED_AND_TAKEN_SUBJECTS = "getCurrentlyEnrolledAndTakenSubjects/";
+
     public final static String SUBMIT = "submitApplication/";
 }

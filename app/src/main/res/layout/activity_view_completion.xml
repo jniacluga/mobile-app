@@ -12,37 +12,33 @@
     <TextView
         android:id="@+id/view_completion_type"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Type" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/view_completion_subject"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Subject" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/view_completion_issue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Issue" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/view_completion_credited_as"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Credited as" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/view_completion_details"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Details" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/view_completion_reason"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Reason" />
+        android:layout_height="wrap_content"/>
+
+    <include layout="@layout/general_service_application_buttons" />
 
 </LinearLayout>
