@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/application_type"
+            android:id="@+id/application_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView" />
@@ -34,17 +34,11 @@
             android:layout_height="wrap_content"
             android:text="TextView" />
 
-        <TextView
-            android:id="@+id/application_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
         <Button
             android:id="@+id/view_button"
             style="@style/Widget.AppCompat.Button.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="VIEW" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

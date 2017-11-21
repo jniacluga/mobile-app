@@ -46,6 +46,8 @@
     <string name="type_petition">Petition/Tutorial Class</string>
     <string name="type_acadrec">Academic Records</string>
 
+    <string name="others">Others</string>
+
     <string-array name="status_filters">
         <item>@string/status_ongoing</item>
         <item>@string/status_closed</item>
@@ -79,7 +81,38 @@
         <item>Academic Records</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="official_transcript_of_records">
+        <item>For reference purposes</item>
+        <item>Copy for...</item>
+    </string-array>
+
+    <string-array name="certification">
+        <item>Comprehensive exam result</item>
+        <item>Grades (for cross-enrollment)</item>
+        <item>Certificate of enrollment/attendance</item>
+        <item>Medium of instruction</item>
+        <item>Course/subject description</item>
+        <item>Non-issuance of S.O. number</item>
+    </string-array>
+
+    <string-array name="certified_true_copy">
+        <item>Transcript of records</item>
+        <item>Employment</item>
+        <item>Board/licensure examination</item>
+        <item>Diploma</item>
+        <item>Transfer to other school</item>
+        <item>@string/others</item>
+    </string-array>
+
+    <string-array name="purpose_of_request">
+        <item>Readmission</item>
+        <item>Employment</item>
+        <item>Board/licensure examination</item>
+        <item>Further studies</item>
+        <item>Transfer to other school</item>
+        <item>@string/others</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

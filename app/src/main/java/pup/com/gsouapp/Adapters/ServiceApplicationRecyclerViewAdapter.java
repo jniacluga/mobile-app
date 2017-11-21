@@ -33,7 +33,6 @@ public class ServiceApplicationRecyclerViewAdapter extends RecyclerView.Adapter<
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         final ServiceApplication application = serviceApplications.get(position);
 
-        holder.applicationType.setText(application.getType().toString());
         holder.dateRequest.setText(application.getDateRequested());
         holder.summary.setText(application.getSummary());
         holder.status.setText(application.getStatus().toString());
@@ -45,6 +44,7 @@ public class ServiceApplicationRecyclerViewAdapter extends RecyclerView.Adapter<
                 Intent intent = new Intent(v.getContext(), ViewServiceApplicationActivity.class);
                 intent.putExtra("appId", application.getId());
                 intent.putExtra("appType", application.getType());
+                intent.putExtra("appStatus", application.getStatus());
                 v.getContext().startActivity(intent);
             }
         });
@@ -61,7 +61,6 @@ public class ServiceApplicationRecyclerViewAdapter extends RecyclerView.Adapter<
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected TextView applicationType;
         protected TextView dateRequest;
         protected TextView summary;
         protected TextView status;
@@ -70,7 +69,6 @@ public class ServiceApplicationRecyclerViewAdapter extends RecyclerView.Adapter<
 
         public CustomViewHolder(View view) {
             super(view);
-            this.applicationType = (TextView) view.findViewById(R.id.application_type);
             this.dateRequest = (TextView) view.findViewById(R.id.date_request);
             this.summary = (TextView) view.findViewById(R.id.summary);
             this.status = (TextView) view.findViewById(R.id.status);
