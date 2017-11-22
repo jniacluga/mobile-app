@@ -45,6 +45,7 @@ public class SchedulesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         ScheduleViewHolder mViewHolder;
 
         if (convertView == null) {
@@ -55,66 +56,46 @@ public class SchedulesAdapter extends BaseAdapter {
             mViewHolder = (ScheduleViewHolder) convertView.getTag();
         }
 
-        String scheduleDay = getItem(position).getDay();
+        Schedule schedule = myList.get(position);
 
-        mViewHolder.txtVwDay.setText(scheduleDay);
-
-        for (Schedule schedule : myList) {
-            TableRow row = new TableRow(context);
-
-            LinearLayout layoutSchedule = new LinearLayout(context);
-            layoutSchedule.setOrientation(LinearLayout.VERTICAL);
-
-            TextView sy = new TextView(context);
-            TextView sem = new TextView(context);
-            TextView day = new TextView(context);
-            TextView startTime = new TextView(context);
-            TextView endTime = new TextView(context);
-            TextView subjectCode = new TextView(context);
-            TextView description = new TextView(context);
-            TextView faculty = new TextView(context);
-            TextView room = new TextView(context);
-            TextView sectionCode = new TextView(context);
-
-            sy.setText(schedule.getSy());
-            sem.setText(schedule.getSem());
-            day.setText(schedule.getDay());
-            startTime.setText(schedule.getStartTime());
-            endTime.setText(schedule.getEndTime());
-            subjectCode.setText(schedule.getSubjectCode());
-            description.setText(schedule.getDescription());
-            faculty.setText(schedule.getFaculty());
-            room.setText(schedule.getRoom());
-            sectionCode.setText(schedule.getSectionCode());
-
-            layoutSchedule.addView(sy);
-            layoutSchedule.addView(sem);
-            layoutSchedule.addView(day);
-            layoutSchedule.addView(startTime);
-            layoutSchedule.addView(endTime);
-            layoutSchedule.addView(subjectCode);
-            layoutSchedule.addView(description);
-            layoutSchedule.addView(faculty);
-            layoutSchedule.addView(room);
-            layoutSchedule.addView(sectionCode);
-
-            row.addView(layoutSchedule);
-
-            mViewHolder.tblSchedule.addView(row);
-        }
+        mViewHolder.txtVwSy.setText(schedule.getSy());
+        mViewHolder.txtVwSem.setText(schedule.getSem());
+        mViewHolder.txtVwDay.setText(schedule.getDay());
+        mViewHolder.txtVwStartTime.setText(schedule.getStartTime());
+        mViewHolder.txtVwEndTime.setText(schedule.getEndTime());
+        mViewHolder.txtVwSubjectCode.setText(schedule.getSubjectCode());
+        mViewHolder.txtVwDescription.setText(schedule.getDescription());
+        mViewHolder.txtVwFaculty.setText(schedule.getFaculty());
+        mViewHolder.txtVwRoom.setText(schedule.getRoom());
+        mViewHolder.txtVwSectionCode.setText(schedule.getSectionCode());
 
         return convertView;
 
     }
 
     private class ScheduleViewHolder {
+        TextView txtVwSy;
+        TextView txtVwSem;
         TextView txtVwDay;
-        TableLayout tblSchedule;
+        TextView txtVwStartTime;
+        TextView txtVwEndTime;
+        TextView txtVwSubjectCode;
+        TextView txtVwDescription;
+        TextView txtVwFaculty;
+        TextView txtVwRoom;
+        TextView txtVwSectionCode;
 
         public ScheduleViewHolder(View item) {
+            txtVwSy = (TextView) item.findViewById(R.id.txtVwSy);
+            txtVwSem = (TextView) item.findViewById(R.id.txtVwSem);
             txtVwDay = (TextView) item.findViewById(R.id.txtVwDay);
-            tblSchedule = (TableLayout) item.findViewById(R.id.tblSchedule);
-
+            txtVwStartTime = (TextView) item.findViewById(R.id.txtVwStartTime);
+            txtVwEndTime = (TextView) item.findViewById(R.id.txtVwEndTime);
+            txtVwSubjectCode = (TextView) item.findViewById(R.id.txtVwSubjectCode);
+            txtVwDescription = (TextView) item.findViewById(R.id.txtVwDescription);
+            txtVwFaculty = (TextView) item.findViewById(R.id.txtVwFaculty);
+            txtVwRoom = (TextView) item.findViewById(R.id.txtVwRoom);
+            txtVwSectionCode = (TextView) item.findViewById(R.id.txtVwSectionCode);
         }
     }
 
