@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -19,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,7 +95,7 @@ public class SchedulesFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_schedules, container, false);
 
-        /*queue = Volley.newRequestQueue(getContext());
+        queue = Volley.newRequestQueue(getContext());
 
         spinnerSy = (Spinner) view.findViewById(R.id.spinnerSchoolYear);
         spinnerSem = (Spinner) view.findViewById(R.id.spinnerSemester);
@@ -180,7 +182,7 @@ public class SchedulesFragment extends Fragment {
             public void onClick(View v) {
                 bindSchedule(saturdaySchedules);
             }
-        });*/
+        });
 
         return view;
     }
