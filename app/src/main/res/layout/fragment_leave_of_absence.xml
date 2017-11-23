@@ -8,16 +8,24 @@
     <!-- TODO: Update blank fragment layout -->
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/loa_dateEffective"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="yyyy/mm/dd"
         android:inputType="date" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/loa_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Reason for Request"
         android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/loa_btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="submit" />
 </LinearLayout>

@@ -97,24 +97,24 @@ public class AcademicRecords extends Fragment
 
     private void bindViews() {
 
-        officialTranscriptOfRecordsChkBx = (CheckBox) view.findViewById(R.id.officialTranscriptOfRecordsChkBx);
-        officialTranscriptOfRecordsSpnr = (Spinner) view.findViewById(R.id.officialTranscriptOfRecordsSpnr);
-        officialTranscriptOfRecordsOther = (EditText) view.findViewById(R.id.officialTranscriptOfRecordsOther);
-
-        certificateOfGradesChkBx = (CheckBox) view.findViewById(R.id.certificateOfGradesChkBx);
-
-        certificateOfTransferCredentialsChkBx = (CheckBox) view.findViewById(R.id.certificateOfTransferCredentialsChkBx);
-
-        certificationChkBx = (CheckBox) view.findViewById(R.id.certificationChkBx);
-
-        certificationSpnr = (Spinner) view.findViewById(R.id.certificationSpnr);
-
-        certifiedTrueCopyChkBx = (CheckBox) view.findViewById(R.id.certifiedTrueCopyChkBx);
-        certifiedTrueCopySpnr = (Spinner) view.findViewById(R.id.certifiedTrueCopySpnr);
-        certifiedTrueCopyOther = (EditText) view.findViewById(R.id.certifiedTrueCopyOther);
-
-        purposeOfRequestSpnr = (Spinner) view.findViewById(R.id.purposeOfRequestSpnr);
-        purposeOfRequestOther = (EditText) view.findViewById(R.id.purposeOfRequestOther);
+//        officialTranscriptOfRecordsChkBx = (CheckBox) view.findViewById(R.id.officialTranscriptOfRecordsChkBx);
+//        officialTranscriptOfRecordsSpnr = (Spinner) view.findViewById(R.id.officialTranscriptOfRecordsSpnr);
+//        officialTranscriptOfRecordsOther = (EditText) view.findViewById(R.id.officialTranscriptOfRecordsOther);
+//
+//        certificateOfGradesChkBx = (CheckBox) view.findViewById(R.id.certificateOfGradesChkBx);
+//
+//        certificateOfTransferCredentialsChkBx = (CheckBox) view.findViewById(R.id.certificateOfTransferCredentialsChkBx);
+//
+//        certificationChkBx = (CheckBox) view.findViewById(R.id.certificationChkBx);
+//
+//        certificationSpnr = (Spinner) view.findViewById(R.id.certificationSpnr);
+//
+//        certifiedTrueCopyChkBx = (CheckBox) view.findViewById(R.id.certifiedTrueCopyChkBx);
+//        certifiedTrueCopySpnr = (Spinner) view.findViewById(R.id.certifiedTrueCopySpnr);
+//        certifiedTrueCopyOther = (EditText) view.findViewById(R.id.certifiedTrueCopyOther);
+//
+//        purposeOfRequestSpnr = (Spinner) view.findViewById(R.id.purposeOfRequestSpnr);
+//        purposeOfRequestOther = (EditText) view.findViewById(R.id.purposeOfRequestOther);
 
         btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
 

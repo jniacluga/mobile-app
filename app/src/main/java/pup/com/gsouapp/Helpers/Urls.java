@@ -2,7 +2,7 @@ package pup.com.gsouapp.Helpers;
 
 public class Urls {
 
-    public final static String WEB_SERVER = "http://192.168.0.13:8012/GSOU_HMVC/api/";
+    public final static String WEB_SERVER = "http://192.168.137.1/GSOU_HMVC/api/";
     public final static String LOGIN = "login/matchLoginCredentials/";
     public final static String ADD_SUBJECT = "serviceapplications/addsubject/";
     public final static String CHANGE_SUBJECT = "serviceapplications/changesubject/";

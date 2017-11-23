@@ -9,7 +9,7 @@
 
     <string name="error_required_value">Required</string>
 
-    <string name="web_server">http://192.168.0.13:8012/GSOU_HMVC/api/</string>
+    <string name="web_server">http://192.168.137.1/GSOU_HMVC/api/</string>
     <string name="login">login/matchLoginCredentials/</string>
     <string name="service_application_addSubject">serviceapplications/addsubject/</string>
     <string name="service_application_changeSubject">serviceapplications/changesubject/</string>
