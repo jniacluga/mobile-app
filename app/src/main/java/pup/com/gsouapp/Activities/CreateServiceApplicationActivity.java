@@ -20,6 +20,7 @@ import pup.com.gsouapp.ServiceApplicationFragments.Graduation;
 import pup.com.gsouapp.ServiceApplicationFragments.LeaveOfAbsence;
 import pup.com.gsouapp.ServiceApplicationFragments.OverloadSubject;
 import pup.com.gsouapp.ServiceApplicationFragments.PetitionTutorialClass;
+import pup.com.gsouapp.SubjectChecklist;
 
 public class CreateServiceApplicationActivity extends AppCompatActivity
     implements AddSubject.OnFragmentInteractionListener,
@@ -31,7 +32,8 @@ public class CreateServiceApplicationActivity extends AppCompatActivity
                 PetitionTutorialClass.OnFragmentInteractionListener,
                 Graduation.OnFragmentInteractionListener,
                 LeaveOfAbsence.OnFragmentInteractionListener,
-                AcademicRecords.OnFragmentInteractionListener {
+                AcademicRecords.OnFragmentInteractionListener,
+                SubjectChecklist.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +91,7 @@ public class CreateServiceApplicationActivity extends AppCompatActivity
                 }
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
                 transaction.replace(R.id.service_application_layout, fragment);
-
                 transaction.commit();
 
             }

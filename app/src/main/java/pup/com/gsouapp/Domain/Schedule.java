@@ -13,6 +13,10 @@ public class Schedule {
     private String room;
     private String sectionCode;
 
+    private Long scheduleId;
+    private Long subjectId;
+    private int units;
+
     public Schedule(String sy, String sem, String day, String startTime, String endTime, String subjectCode, String description, String faculty, String room, String sectionCode) {
         this.sy = sy;
         this.sem = sem;
@@ -24,6 +28,20 @@ public class Schedule {
         this.faculty = faculty;
         this.room = room;
         this.sectionCode = sectionCode;
+    }
+
+    public Schedule(String sy, String sem, String day, String startTime, String endTime, String subjectCode, String description, String faculty, Long scheduleId, Long subjectId, int units) {
+        this.sy = sy;
+        this.sem = sem;
+        this.day = day;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.subjectCode = subjectCode;
+        this.description = description;
+        this.faculty = faculty;
+        this.scheduleId = scheduleId;
+        this.subjectId = subjectId;
+        this.units = units;
     }
 
     public String getSy() {
@@ -104,5 +122,29 @@ public class Schedule {
 
     public void setSectionCode(String sectionCode) {
         this.sectionCode = sectionCode;
+    }
+
+    public Long getScheduleId() {
+        return scheduleId;
+    }
+
+    public void setScheduleId(Long scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+
+    public Long getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(Long subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public int getUnits() {
+        return units;
+    }
+
+    public void setUnits(int units) {
+        this.units = units;
     }
 }

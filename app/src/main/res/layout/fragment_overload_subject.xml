@@ -5,32 +5,40 @@
     android:orientation="vertical"
     tools:context="pup.com.gsouapp.ServiceApplicationFragments.OverloadSubject">
 
-
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/subjectsToOverload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="none"
+        android:focusable="false"
+        android:hint="Subjects to Overload"/>
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/os_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
-
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:hint="Reason"/>
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/studentStatus"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:entries="@array/student_status"/>
+
+    <EditText
+        android:id="@+id/studentStatusOther"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT" />
+
 </LinearLayout>
