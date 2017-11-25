@@ -1,74 +1,160 @@
 package pup.com.gsouapp.ServiceApplicationFragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import pup.com.gsouapp.Activities.MainActivity;
+import pup.com.gsouapp.Helpers.AppToServer;
+import pup.com.gsouapp.Helpers.Urls;
+import pup.com.gsouapp.Interfaces.DialogCallbackContract;
+import pup.com.gsouapp.Interfaces.ResponseHandler;
 import pup.com.gsouapp.R;
+import pup.com.gsouapp.SubjectChecklist;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OverloadSubject.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link OverloadSubject#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class OverloadSubject extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class OverloadSubject extends Fragment
+    implements ResponseHandler, DialogCallbackContract {
 
     private OnFragmentInteractionListener mListener;
+    private View view;
+
+    private static OverloadSubject overloadSubject;
+
+    private static final String OTHERS = "Others";
+
+    private static final int SERVICE_APPLICATION_INT = 3;
+
+    EditText subjectsToOverload;
+    EditText reason;
+    Spinner studentStatus;
+    EditText studentStatusOther;
+
+    Button btnSubmit;
+
+    Map<String, String> params;
+    SharedPreferences sharedPreferences;
+
+    List<String> commaSeparatedValues;
+
+    SubjectChecklist checklist = SubjectChecklist.getInstance();
+
+    Intent intent;
 
     public OverloadSubject() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OverloadSubject.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OverloadSubject newInstance(String param1, String param2) {
-        OverloadSubject fragment = new OverloadSubject();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static OverloadSubject getInstance() {
+        if (overloadSubject == null) {
+            overloadSubject = new OverloadSubject();
+        }
+
+        return overloadSubject;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_overload_subject, container, false);
+
+        view = inflater.inflate(R.layout.fragment_overload_subject, container, false);
+        sharedPreferences = getContext().getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
+        bindViews();
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    private void bindViews() {
+
+        subjectsToOverload = (EditText) view.findViewById(R.id.subjectsToOverload);
+        reason = (EditText) view.findViewById(R.id.os_reason);
+        studentStatus = (Spinner) view.findViewById(R.id.studentStatus);
+        studentStatusOther = (EditText) view.findViewById(R.id.studentStatusOther);
+
+        btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
+
+        subjectsToOverload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogFragment();
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callToServer();
+            }
+        });
+    }
+
+    public void showDialogFragment() {
+        if (!checklist.isAdded()) {
+            checklist.setTargetFragment(this, 0);
+            checklist.setMethodName(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED);
+            checklist.show(getFragmentManager(), "");
+        } else {
+            checklist.getDialog().show();
+        }
+    }
+
+    @Override
+    public void callToServer() {
+        params = new HashMap<>();
+
+        String status = "";
+
+        if (studentStatus.getSelectedItem().toString().equals(OTHERS)) {
+            status = studentStatusOther.getText().toString();
+        } else {
+            status = studentStatus.getSelectedItem().toString();
+        }
+
+        params.put("studentNumber", sharedPreferences.getString("sourceId", ""));
+        params.put("subjects", TextUtils.join(",", commaSeparatedValues));
+        params.put("studentStatus", status);
+
+         AppToServer.sendRequest(getContext(), Urls.OVERLOAD_SUBJECT + Urls.SUBMIT, this, params);
+    }
+
+    @Override
+    public void handleResponse(String response) {
+        if (!response.equals("\r\n\"\"")) {
+
+            if (response.contains("1")) {
+                intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("selectedPage", SERVICE_APPLICATION_INT);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getContext(), "An error has been encountered, try again later.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void handleErrorResponse(VolleyError error) {
+
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -92,18 +178,14 @@ public class OverloadSubject extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void passDataBackToFragment(Map<String, List<String>> map) {
+        this.commaSeparatedValues = map.get("subjectIds");
+        subjectsToOverload.setText("");
+        subjectsToOverload.setText( TextUtils.join(", ", map.get("subjectDescriptions")) );
+    }
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
