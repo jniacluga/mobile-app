@@ -1,13 +1,38 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="pup.com.gsouapp.ServiceApplicationFragments.Graduation">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/date_of_compre_exam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date of Comprehensive Exam" />
+
+    <TextView
+        android:id="@+id/date_of_oral_defense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date of Oral Defense" />
+
+    <TextView
+        android:id="@+id/thesis_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thesis title" />
+
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/already_taken_subjects_layout">
+    </TableLayout>
 
-</FrameLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/currently_enrolled_subjects_layout">
+    </TableLayout>
+
+</LinearLayout>

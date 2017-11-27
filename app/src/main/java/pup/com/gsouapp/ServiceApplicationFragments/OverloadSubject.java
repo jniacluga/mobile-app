@@ -132,6 +132,7 @@ public class OverloadSubject extends Fragment
         params.put("studentNumber", sharedPreferences.getString("sourceId", ""));
         params.put("subjects", TextUtils.join(",", commaSeparatedValues));
         params.put("studentStatus", status);
+        params.put("reason", reason.getText().toString());
 
          AppToServer.sendRequest(getContext(), Urls.OVERLOAD_SUBJECT + Urls.SUBMIT, this, params);
     }
@@ -144,6 +145,7 @@ public class OverloadSubject extends Fragment
                 intent = new Intent(getContext(), MainActivity.class);
                 intent.putExtra("selectedPage", SERVICE_APPLICATION_INT);
                 startActivity(intent);
+                getActivity().finish();
             } else {
                 Toast.makeText(getContext(), "An error has been encountered, try again later.", Toast.LENGTH_SHORT).show();
             }

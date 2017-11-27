@@ -33,4 +33,6 @@
         android:layout_height="wrap_content"
         android:text="Reason" />
 
+    <include layout="@layout/general_service_application_buttons" />
+
 </LinearLayout>

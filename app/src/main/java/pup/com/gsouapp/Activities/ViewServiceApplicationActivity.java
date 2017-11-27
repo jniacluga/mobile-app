@@ -316,18 +316,57 @@ public class ViewServiceApplicationActivity extends AppCompatActivity {
     }
 
     private void setUpOverloadSubject() {
-        setContentView(R.layout.activity_view_overload_subject);
+        final Long appIdFinal = appId;
+
+        StringRequest request = new StringRequest(Request.Method.POST, getResources().getString(R.string.web_server) +
+                Urls.OVERLOAD_SUBJECT + "loadSingleApplication/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                if (!response.equals("\r\n\"\"")) {
+
+                    try {
+                        JSONArray arr = new JSONArray(response);
+
+                        setContentView(R.layout.activity_view_overload_subject);
+
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject obj = arr.getJSONObject(i);
+
+                            TextView numberOfSubjects = (TextView) findViewById(R.id.view_os_number_of_subjects);
+                            TextView listOfSubjects = (TextView) findViewById(R.id.view_os_list_of_subjects);
+                            TextView studentStatus = (TextView) findViewById(R.id.view_os_student_status);
+                            TextView reason = (TextView) findViewById(R.id.view_os_reason);
+
+                            numberOfSubjects.setText(obj.getString("numberOfSubjects"));
+                            listOfSubjects.setText(obj.getString("subjects"));
+                            studentStatus.setText(obj.getString("studentStatus"));
+                            reason.setText(obj.getString("reason"));
+
+                            setUpCommon(obj.getString("id"), obj.getString("status"), obj.getString("approvalLevel") + "/" + obj.getString("numberOfApprovers"), obj.getString("dateRequested"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("", error.toString());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("appId", appIdFinal.toString());
+                return params;
+            }
+        };
+
+        queue.add(request);
+
 //        setUpCommon();
-
-        TextView numberOfSubjects = (TextView) findViewById(R.id.view_os_number_of_subjects);
-        TextView listOfSubjects = (TextView) findViewById(R.id.view_os_list_of_subjects);
-        TextView studentStatus = (TextView) findViewById(R.id.view_os_student_status);
-        TextView reason = (TextView) findViewById(R.id.view_os_reason);
-
-        numberOfSubjects.setText("");
-        listOfSubjects.setText("");
-        studentStatus.setText("");
-        reason.setText("");
     }
 
     private void setUpLeaveOfAbsence() {
