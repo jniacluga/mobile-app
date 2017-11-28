@@ -23,7 +23,7 @@
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="75dp"
-            android:text="2013-00008-CM-0"/>
+            android:text="2015-00008-OUCM-0"/>
 
         <EditText
             android:id="@+id/password"

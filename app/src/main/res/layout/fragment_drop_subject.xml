@@ -5,27 +5,26 @@
     android:orientation="vertical"
     tools:context="pup.com.gsouapp.ServiceApplicationFragments.DropSubject">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/subjectsToDrop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="none"
+        android:focusable="false"
+        android:hint="Subjects to Drop"/>
 
     <EditText
-        android:id="@+id/editText11"
+        android:id="@+id/ds_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:hint="Reason"/>
 
-    <EditText
-        android:id="@+id/editText7"
+    <Button
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine" />
+        android:text="SUBMIT" />
 </LinearLayout>
