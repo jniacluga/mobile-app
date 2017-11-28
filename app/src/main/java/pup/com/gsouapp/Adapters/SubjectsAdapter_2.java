@@ -6,25 +6,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import pup.com.gsouapp.Domain.Schedule;
+import pup.com.gsouapp.Domain.Subject;
 import pup.com.gsouapp.R;
 
-public class SubjectsAdapter extends BaseAdapter
-implements ChoiceAdapter, ListAdapter{
+// TODO: CREATE AN INTERFACE AND CREATE A PROPER ADAPTER
+public class SubjectsAdapter_2 extends BaseAdapter
+implements ChoiceAdapter{
 
-    List<Schedule> schedules = new ArrayList();
+    List<Subject> subjects = new ArrayList<>();
     List<Boolean> checkboxState;
     LayoutInflater inflater;
     Context context;
 
-    public SubjectsAdapter(Context context, List<Schedule> schedules, List<Boolean> checkboxState) {
-        this.schedules = schedules;
+    public SubjectsAdapter_2(Context context, List<Subject> subjects, List<Boolean> checkboxState) {
+        this.subjects = subjects;
         this.context = context;
         this.checkboxState = checkboxState;
         inflater = LayoutInflater.from(this.context);
@@ -32,12 +32,12 @@ implements ChoiceAdapter, ListAdapter{
 
     @Override
     public int getCount() {
-        return schedules.size();
+        return subjects.size();
     }
 
     @Override
-    public Schedule getItem(int position) {
-        return schedules.get(position);
+    public Subject getItem(int position) {
+        return subjects.get(position);
     }
 
     @Override
@@ -48,19 +48,19 @@ implements ChoiceAdapter, ListAdapter{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        final SubjectsAdapter.SubjectViewHolder mViewHolder;
+        final SubjectsAdapter_2.SubjectViewHolder mViewHolder;
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.subject_row, parent, false);
-            mViewHolder = new SubjectsAdapter.SubjectViewHolder(convertView);
+            mViewHolder = new SubjectsAdapter_2.SubjectViewHolder(convertView);
             convertView.setTag(mViewHolder);
         } else {
-            mViewHolder = (SubjectsAdapter.SubjectViewHolder) convertView.getTag();
+            mViewHolder = (SubjectsAdapter_2.SubjectViewHolder) convertView.getTag();
         }
 
-        Schedule schedule = schedules.get(position);
+        Subject subject = subjects.get(position);
 
-        mViewHolder.txtVwSubject.setText(schedule.getSubjectCode());
+        mViewHolder.txtVwSubject.setText(subject.getCode());
         mViewHolder.chkBxSubject.setChecked(checkboxState.get(position));
         mViewHolder.chkBxSubject.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -25,9 +25,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pup.com.gsouapp.Adapters.ChoiceAdapter;
 import pup.com.gsouapp.Adapters.SubjectsAdapter;
+import pup.com.gsouapp.Adapters.SubjectsAdapter_2;
 import pup.com.gsouapp.Domain.Schedule;
+import pup.com.gsouapp.Domain.Subject;
 import pup.com.gsouapp.Helpers.AppToServer;
+import pup.com.gsouapp.Helpers.Urls;
 import pup.com.gsouapp.Interfaces.DialogCallbackContract;
 import pup.com.gsouapp.Interfaces.ResponseHandler;
 
@@ -40,6 +44,7 @@ public class SubjectChecklist extends DialogFragment
     private String methodName;
 
     private List<Schedule> schedules = new ArrayList<>();
+    private List<Subject> subjects = new ArrayList<>();
 
     private static SubjectChecklist subjectChecklist;
 
@@ -48,7 +53,7 @@ public class SubjectChecklist extends DialogFragment
 
     List<Boolean> checkBoxState;
 
-    SubjectsAdapter adapter;
+    ChoiceAdapter adapter;
 
     Context mContext;
 
@@ -105,8 +110,13 @@ public class SubjectChecklist extends DialogFragment
                 int i = 0;
                 for (Boolean state : checkBoxState) {
                     if (state) {
-                        subjectIds.add(schedules.get(i).getScheduleId().toString());
-                        subjectDescriptions.add(schedules.get(i).getSubjectCode());
+                        if (methodName.equals(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED)) {
+                            subjectIds.add(schedules.get(i).getScheduleId().toString());
+                            subjectDescriptions.add(schedules.get(i).getSubjectCode());
+                        } else {
+                            subjectIds.add(subjects.get(i).getSubjectId().toString());
+                            subjectDescriptions.add(subjects.get(i).getCode());
+                        }
                     }
                     i++;
                 }
@@ -140,35 +150,59 @@ public class SubjectChecklist extends DialogFragment
 
         try {
 
+            schedules.clear();
+            subjects.clear();
+
             JSONArray arr = new JSONArray(response);
 
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject obj = arr.getJSONObject(i);
 
-                Schedule schedule = new Schedule(
-                    obj.getString("sy"),
-                    obj.getString("sem"),
-                    obj.getString("day"),
-                    obj.getString("startTime"),
-                    obj.getString("endTime"),
-                    obj.getString("subjectCode"),
-                    obj.getString("subjectDesc"),
-                    obj.getString("faculty"),
-                    obj.getLong("scheduleId"),
-                    obj.getLong("subjectId"),
-                    obj.getInt("units")
-                );
+                if (methodName.equals(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED)) {
+                    Schedule schedule = new Schedule(
+                            obj.getString("sy"),
+                            obj.getString("sem"),
+                            obj.getString("day"),
+                            obj.getString("startTime"),
+                            obj.getString("endTime"),
+                            obj.getString("subjectCode"),
+                            obj.getString("subjectDesc"),
+                            obj.getString("faculty"),
+                            obj.getLong("scheduleId"),
+                            obj.getLong("subjectId"),
+                            obj.getInt("units")
+                    );
 
-                schedules.add(schedule);
+                    schedules.add(schedule);
+                } else {
+                    Subject subject = new Subject(
+                            obj.getLong("subjectId"),
+                            obj.getString("subjectDisplay"),
+                            obj.getString("code"),
+                            obj.getString("description"),
+                            obj.getInt("units"),
+                            obj.getString("sy"),
+                            obj.getString("semester")
+                    );
+
+                    subjects.add(subject);
+                }
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        checkBoxState = new ArrayList<>(Collections.nCopies(schedules.size(), false));
-        lvSubjects.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
-        adapter = new SubjectsAdapter(getContext(), schedules, checkBoxState);
+        if (methodName.equals(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED)) {
+            checkBoxState = new ArrayList<>(Collections.nCopies(schedules.size(), false));
+            lvSubjects.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
+            adapter = new SubjectsAdapter(getContext(), schedules, checkBoxState);
+        } else {
+            checkBoxState = new ArrayList<>(Collections.nCopies(subjects.size(), false));
+            lvSubjects.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
+            adapter = new SubjectsAdapter_2(getContext(), subjects, checkBoxState);
+        }
+
         lvSubjects.setAdapter(adapter);
     }
 

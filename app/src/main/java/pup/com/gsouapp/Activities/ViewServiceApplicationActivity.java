@@ -69,12 +69,12 @@ public class ViewServiceApplicationActivity extends AppCompatActivity {
 
 //            setUpAddSubject();
 //            setUpChangeSubject();
-//            setUpDropSubject();
+            setUpDropSubject();
 //            setUpOverloadSubject();
 //            setUpLeaveOfAbsence();
-            setUpCompletion();
+//            setUpCompletion();
 //            setUpPetitionTutorialClasses();
-            setUpAcademicRecords();
+//            setUpAcademicRecords();
 //            setUpComprehensiveExam();
 //            setUpGraduation();
         }
@@ -303,16 +303,55 @@ public class ViewServiceApplicationActivity extends AppCompatActivity {
     }
 
     private void setUpDropSubject() {
-        setContentView(R.layout.activity_view_drop_subject);
-//        setUpCommon();
+        final Long appIdFinal = appId;
 
-        TextView numberOfSubjects = (TextView) findViewById(R.id.view_ds_number_of_subjects);
-        TextView listOfSubjects = (TextView) findViewById(R.id.view_ds_list_of_subjects);
-        TextView reason = (TextView) findViewById(R.id.view_ds_reason);
+        StringRequest request = new StringRequest(Request.Method.POST, getResources().getString(R.string.web_server) +
+                Urls.DROP_SUBJECT + "loadSingleApplication/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
-        numberOfSubjects.setText("");
-        listOfSubjects.setText("");
-        reason.setText("");
+                if (!response.equals("\r\n\"\"")) {
+
+                    try {
+                        JSONArray arr = new JSONArray(response);
+
+                        setContentView(R.layout.activity_view_drop_subject);
+
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject obj = arr.getJSONObject(i);
+
+                            TextView numberOfSubjects = (TextView) findViewById(R.id.view_ds_number_of_subjects);
+                            TextView listOfSubjects = (TextView) findViewById(R.id.view_ds_list_of_subjects);
+                            TextView reason = (TextView) findViewById(R.id.view_ds_reason);
+
+                            numberOfSubjects.setText(obj.getString("numberOfSubjects"));
+                            listOfSubjects.setText(obj.getString("subjects"));
+                            reason.setText(obj.getString("reason"));
+
+                            setUpCommon(obj.getString("id"), obj.getString("status"), obj.getString("approvalLevel") + "/" + obj.getString("numberOfApprovers"), obj.getString("dateRequested"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("", error.toString());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("appId", appIdFinal.toString());
+                return params;
+            }
+        };
+
+        queue.add(request);
+
+
     }
 
     private void setUpOverloadSubject() {
