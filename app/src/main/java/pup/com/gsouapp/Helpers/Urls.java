@@ -26,6 +26,8 @@ public class Urls {
     public static final String GET_CURRENTLY_ENROLLED_SUBJECTS = "getCurrentlyEnrolledSubjects/";
     public static final String GET_CURRENTLY_ENROLLED_AND_TAKEN_SUBJECTS = "getCurrentlyEnrolledAndTakenSubjects/";
     public static final String GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED = "getSubjectsOfferedButNotTakenOrEnrolled";
+    public static final String GET_PETITIONS_BY_SUBJECT = "getPetitionsBySubject";
 
     public final static String SUBMIT = "submitApplication/";
+    public final static String JOIN = "joinPetition/";
 }

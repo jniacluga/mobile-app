@@ -6,23 +6,55 @@
     tools:context="pup.com.gsouapp.ServiceApplicationFragments.PetitionTutorialClass">
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/subjectToPetition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/editText12"
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine" />
+        android:layout_height="wrap_content" >
 
-    <EditText
-        android:id="@+id/editText13"
+        <RadioButton
+            android:id="@+id/rdoJoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Join" />
+
+        <RadioButton
+            android:id="@+id/rdoCreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create" />
+    </TableRow>
+
+    <ScrollView
+        android:id="@+id/svStudents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lvStudents"/>
+
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/svPetitions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lvPetitions"/>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="SUBMIT" />
 
 </LinearLayout>
