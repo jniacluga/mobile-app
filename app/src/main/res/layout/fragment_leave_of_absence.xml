@@ -5,19 +5,24 @@
     android:orientation="vertical"
     tools:context="pup.com.gsouapp.ServiceApplicationFragments.LeaveOfAbsence">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/dateEffective"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="date"/>
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/loa_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT" />
+
 </LinearLayout>

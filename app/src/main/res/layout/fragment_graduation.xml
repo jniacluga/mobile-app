@@ -6,33 +6,38 @@
     tools:context="pup.com.gsouapp.ServiceApplicationFragments.Graduation">
 
     <TextView
-        android:id="@+id/date_of_compre_exam"
+        android:id="@+id/dateOfCompreExam"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Date of Comprehensive Exam" />
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/date_of_oral_defense"
+        android:id="@+id/dateOfOralDefense"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Date of Oral Defense" />
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/thesis_title"
+        android:id="@+id/thesisTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thesis title" />
+        android:id="@+id/lvCurrentlyEnrolledSubjects"
+        android:background="@color/colorPrimaryDark">
+    </ListView>
 
-    <TableLayout
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/already_taken_subjects_layout">
-    </TableLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/lvAlreadyTakenSubjects"
+        android:background="@color/colorPrimary">
+    </ListView>
 
-    <TableLayout
+    <Button
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/currently_enrolled_subjects_layout">
-    </TableLayout>
+        android:layout_height="wrap_content"
+        android:text="SUBMIT" />
 
 </LinearLayout>

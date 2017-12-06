@@ -1,5 +1,6 @@
 package pup.com.gsouapp.Adapters;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class ServiceApplicationRecyclerViewAdapter extends RecyclerView.Adapter<
                 intent.putExtra("appType", application.getType());
                 intent.putExtra("appStatus", application.getStatus());
                 v.getContext().startActivity(intent);
+//                ((Activity)v.getContext()).finish();
             }
         });
     }

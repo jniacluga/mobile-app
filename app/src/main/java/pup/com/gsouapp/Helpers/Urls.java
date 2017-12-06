@@ -25,8 +25,16 @@ public class Urls {
 
     public static final String GET_CURRENTLY_ENROLLED_SUBJECTS = "getCurrentlyEnrolledSubjects/";
     public static final String GET_CURRENTLY_ENROLLED_AND_TAKEN_SUBJECTS = "getCurrentlyEnrolledAndTakenSubjects/";
-    public static final String GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED = "getSubjectsOfferedButNotTakenOrEnrolled";
-    public static final String GET_PETITIONS_BY_SUBJECT = "getPetitionsBySubject";
+    public static final String GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED = "getSubjectsOfferedButNotTakenOrEnrolled/";
+    public static final String GET_ALREADY_COMPLETED_SUBJECTS = "getAlreadyCompletedSubjects/";
+
+    public static final String GET_PETITIONS_BY_SUBJECT = "getPetitionsBySubject/";
+
+    public static final String GET_DATE_OF_ORAL_DEFENSE = "getDateOfOralDefense/";
+    public static final String GET_THESIS_TITLE = "getThesisTitle/";
+    public static final String GET_COMPRE_EXAM_DATE = "getCompreExamDate/";
+
+    public static final String GET_GRADUATION_FORM_DETAILS = "getGraduationFormDetails/";
 
     public final static String SUBMIT = "submitApplication/";
     public final static String JOIN = "joinPetition/";

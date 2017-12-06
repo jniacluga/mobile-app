@@ -1,36 +1,66 @@
 package pup.com.gsouapp.ServiceApplicationFragments;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import pup.com.gsouapp.Activities.MainActivity;
+import pup.com.gsouapp.Helpers.AppToServer;
+import pup.com.gsouapp.Helpers.Urls;
+import pup.com.gsouapp.Interfaces.DialogCallbackContract;
+import pup.com.gsouapp.Interfaces.ResponseHandler;
 import pup.com.gsouapp.R;
+import pup.com.gsouapp.SubjectChecklist;
 
-public class AddSubject extends Fragment {
+public class AddSubject extends Fragment
+    implements ResponseHandler, DialogCallbackContract {
 
     private OnFragmentInteractionListener mListener;
+    private static AddSubject addSubject;
+
+    EditText subjectsToAdd;
+    EditText reason;
+    Button btnSubmit;
+
+    private View view;
+
+    Map<String, String> params;
+    SharedPreferences sharedPreferences;
+
+    List<String> commaSeparatedValues;
+
+    private static final int SERVICE_APPLICATION_INT = 3;
+
+    SubjectChecklist checklist = SubjectChecklist.getInstance();
+
+    Intent intent;
 
     public AddSubject() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddSubject.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddSubject newInstance(String param1, String param2) {
-        AddSubject fragment = new AddSubject();
-        Bundle args = new Bundle();
-        return fragment;
+    public static AddSubject getInstance() {
+        if (addSubject == null) {
+            addSubject = new AddSubject();
+        }
+
+        return addSubject;
     }
 
     @Override
@@ -41,14 +71,78 @@ public class AddSubject extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_subject, container, false);
+        view = inflater.inflate(R.layout.fragment_add_subject, container, false);
+        sharedPreferences = getContext().getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
+        bindViews();
+        return view;
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    private void bindViews() {
+        subjectsToAdd = (EditText) view.findViewById(R.id.subjectsToAdd);
+        reason = (EditText) view.findViewById(R.id.as_reason);
+        btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
+
+        subjectsToAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogFragment();
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callToServer();
+            }
+        });
+    }
+
+    public void showDialogFragment() {
+        if (!checklist.isAdded()) {
+            checklist.setTargetFragment(this, 0);
+            checklist.setMethodName(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED);
+            checklist.show(getFragmentManager(), "");
+        } else {
+            checklist.getDialog().show();
         }
+    }
+
+    @Override
+    public void callToServer() {
+        params = new HashMap<>();
+
+        params.put("studentNumber", sharedPreferences.getString("sourceId", ""));
+        params.put("subjects", TextUtils.join(",", commaSeparatedValues));
+        params.put("reason", reason.getText().toString());
+
+        AppToServer.sendRequest(getContext(), Urls.ADD_SUBJECT + Urls.SUBMIT, this, params);
+    }
+
+    @Override
+    public void handleResponse(String response) {
+        if (!response.equals("\r\n\"\"")) {
+
+            if (response.contains("1")) {
+                intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra("selectedPage", SERVICE_APPLICATION_INT);
+                startActivity(intent);
+                getActivity().finish();
+            } else {
+                Toast.makeText(getContext(), "An error has been encountered, try again later.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void handleErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void passDataBackToFragment(Map<String, List<String>> map) {
+        this.commaSeparatedValues = map.get("subjectIds");
+        subjectsToAdd.setText("");
+        subjectsToAdd.setText( TextUtils.join(", ", map.get("subjectDescriptions")) );
     }
 
     @Override

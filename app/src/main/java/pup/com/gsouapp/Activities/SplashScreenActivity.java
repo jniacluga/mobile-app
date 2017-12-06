@@ -1,37 +1,39 @@
 package pup.com.gsouapp.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
 
 import pup.com.gsouapp.R;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                SharedPreferences sharedPreferences = getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
+        final SharedPreferences sharedPreferences = getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
+        final Intent intent;
 
-                Intent intent;
+        if (!sharedPreferences.getString("sourceId", "").equals("")) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
+        else {
 
-                if (!sharedPreferences.getString("sourceId", "").equals("")) {
-                    intent = new Intent(getApplicationContext(), MainActivity.class);
-                } else {
-                    intent = new Intent(getApplicationContext(), LoginActivity.class);
+            setContentView(R.layout.activity_splash_screen);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    finish();
                 }
-
-                startActivity(intent);
-                finish();
-            }
-        }, 1000);
+            }, 1000);
+        }
     }
 }

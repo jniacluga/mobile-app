@@ -10,7 +10,13 @@
     <include layout="@layout/general_service_application_details" />
 
     <TextView
-        android:id="@+id/view_as_number_of_subjects"
+        android:id="@+id/view_cs_number_of_subjects_to_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Number of Subjects" />
+
+    <TextView
+        android:id="@+id/view_cs_number_of_subjects_from_change"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Number of Subjects" />
@@ -32,5 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Reason" />
+
+    <include layout="@layout/general_service_application_buttons" />
 
 </LinearLayout>

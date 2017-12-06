@@ -190,8 +190,39 @@ public class ServiceApplicationFragment extends Fragment {
         String summary = "";
 
         switch(obj.getString("type")) {
+            case "Add Subject":
+                summary = "Add " + obj.getString("subjectCount") + " subject/s: " + obj.getString("subjects") + "\n" +
+                        obj.getString("reason");
+                break;
+            case "Change Subject":
+                summary = "Change " + obj.getString("subjectCount") + " subject/s with " + obj.getString("subjectCountChange") + " subject/s \n" +
+                        obj.getString("reason");
+                break;
+            case "Drop Subject":
+                summary = "Drop " + obj.getString("subjectCount") + " subject/s: " + obj.getString("subjects") + "\n" +
+                        obj.getString("reason");
+                break;
+            case "Overload Subject":
+                summary = obj.getString("studentStatus") + " to overload " + obj.getString("subjectCount") + " subject/s: " + obj.getString("subjects") + "\n" +
+                        obj.getString("reason");
+                break;
+            case "Leave of Absence":
+                summary = "Leave of absence effective on " + obj.getString("dateOfEffectivity") + "\n" +obj.getString("reason");
+                break;
             case "Academic Records":
-                summary = obj.getString("numberOfRecordsRequested") + " records including " + obj.getString("requestDocuments").substring(0, 40) + "...";
+                summary = obj.getString("numberOfRecordsRequested") + " records: " + obj.getString("requestDocuments").substring(0, 40) + "...\n" +
+                        obj.getString("reason");
+                break;
+            case "Comprehensive Exam":
+                summary = obj.getString("currentlyEnrolledUnits") + " currently enrolled units; " + obj.getString("completedUnits") + " completed units; " +
+                        obj.getString("totalNumberOfUnitsToTake") + " total number of units";
+                break;
+            case "Graduation":
+                summary = "Oral Defense: " + obj.getString("dateOfOralDefense") + " Comprehensive Exam Date: " + obj.getString("dateCompreExam") + "\n" +
+                        obj.getString("completedUnits") + " completed units; " + obj.getString("totalNumberOfUnitsToTake") + " total number of units";
+                break;
+            case "Completion":
+                summary = obj.getString("completionType") + "\n" + obj.getString("reason");
                 break;
             default:
                 break;

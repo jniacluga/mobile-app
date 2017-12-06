@@ -5,15 +5,14 @@
     android:orientation="vertical"
     tools:context="pup.com.gsouapp.ServiceApplicationFragments.AddSubject">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <EditText
-        android:id="@+id/as_subject_ids"
+        android:id="@+id/subjectsToAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="hidden, IDS" />
+        android:inputType="none"
+        android:focusable="false"
+        android:hint="Subjects to Add"/>
 
     <EditText
         android:id="@+id/as_reason"
@@ -21,12 +20,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:text="reason for request" />
+        android:hint="Reason"/>
 
-    <EditText
-        android:id="@+id/editText14"
+    <Button
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine" />
+        android:text="SUBMIT" />
+
 </LinearLayout>

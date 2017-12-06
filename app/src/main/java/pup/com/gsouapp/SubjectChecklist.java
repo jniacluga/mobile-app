@@ -122,6 +122,15 @@ public class SubjectChecklist extends DialogFragment
                 }
 
                 HashMap<String, List<String>> map = new HashMap<>();
+
+                if (methodName.equals(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED)) {
+                    map.put("subjectsTo", subjectIds);
+                    map.put("subjectsToDescription", subjectDescriptions);
+                } else {
+                    map.put("subjectsFrom", subjectIds);
+                    map.put("subjectsFromDescription", subjectDescriptions);
+                }
+
                 map.put("subjectIds", subjectIds);
                 map.put("subjectDescriptions", subjectDescriptions);
                 ((DialogCallbackContract) getTargetFragment()).passDataBackToFragment(map);
@@ -158,7 +167,7 @@ public class SubjectChecklist extends DialogFragment
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject obj = arr.getJSONObject(i);
 
-                if (methodName.equals(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED)) {
+                if (methodName.equals(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED) || methodName.equals(Urls.ADD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED)) {
                     Schedule schedule = new Schedule(
                             obj.getString("sy"),
                             obj.getString("sem"),
@@ -193,7 +202,8 @@ public class SubjectChecklist extends DialogFragment
             e.printStackTrace();
         }
 
-        if (methodName.equals(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED)) {
+        if (methodName.equals(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED)
+                || methodName.equals(Urls.ADD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED)) {
             checkBoxState = new ArrayList<>(Collections.nCopies(schedules.size(), false));
             lvSubjects.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
             adapter = new SubjectsAdapter(getContext(), schedules, checkBoxState);

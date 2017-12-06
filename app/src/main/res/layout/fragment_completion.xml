@@ -28,14 +28,15 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:hint="Reported as..." />
 
     <EditText
         android:id="@+id/cp_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:hint="Reason"/>
 
     <Spinner
         android:id="@+id/beCreditedAsOne"
@@ -48,14 +49,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"/>
+        android:inputType="textPersonName"
+        android:hint="Be recorded as..."/>
 
     <EditText
         android:id="@+id/nameTo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="numberDecimal"/>
+        android:inputType="textPersonName"
+        android:hint="Last name"/>
 
     <Button
         android:id="@+id/btnSubmit"

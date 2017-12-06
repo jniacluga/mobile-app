@@ -46,7 +46,8 @@ public class PetitionTutorialClass extends Fragment
     Spinner subjectToPetition;
     RadioButton rdoJoin;
     RadioButton rdoCreate;
-    EditText studentsToInvite;
+    ScrollView svStudents;
+    ListView lvStudents;
     ScrollView svPetitions;
     ListView lvPetitions;
     Button btnSubmit;
@@ -92,7 +93,8 @@ public class PetitionTutorialClass extends Fragment
         subjectToPetition = (Spinner) view.findViewById(R.id.subjectToPetition);
         rdoJoin = (RadioButton) view.findViewById(R.id.rdoJoin);
         rdoCreate = (RadioButton) view.findViewById(R.id.rdoCreate);
-        studentsToInvite = (EditText) view.findViewById(R.id.studentsToInvite);
+        svStudents = (ScrollView) view.findViewById(R.id.svStudents);
+        lvStudents = (ListView) view.findViewById(R.id.lvStudents);
         svPetitions = (ScrollView) view.findViewById(R.id.svPetitions);
         lvPetitions = (ListView) view.findViewById(R.id.lvPetitions);
         btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
@@ -114,13 +116,6 @@ public class PetitionTutorialClass extends Fragment
             @Override
             public void onClick(View v) {
                 callToServer();
-            }
-        });
-
-        studentsToInvite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogFragment();
             }
         });
 
@@ -180,10 +175,10 @@ public class PetitionTutorialClass extends Fragment
 
     private void showHideFields() {
         if (rdoJoin.isChecked()) {
-            studentsToInvite.setVisibility(View.GONE);
+            svStudents.setVisibility(View.GONE);
             svPetitions.setVisibility(View.VISIBLE);
         } else {
-            studentsToInvite.setVisibility(View.VISIBLE);
+            svStudents.setVisibility(View.VISIBLE);
             svPetitions.setVisibility(View.GONE);
         }
     }

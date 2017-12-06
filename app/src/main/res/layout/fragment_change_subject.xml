@@ -6,41 +6,34 @@
     tools:context="pup.com.gsouapp.ServiceApplicationFragments.ChangeSubject">
 
     <EditText
-        android:id="@+id/cs_subject_from_id"
+        android:id="@+id/subjectToChangeFrom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="none"
+        android:focusable="false"
+        android:hint="Subject to Drop" />
 
     <EditText
-        android:id="@+id/cs_subject_to_id"
+        android:id="@+id/subjectToChangeTo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:inputType="none"
+        android:focusable="false"
+        android:hint="Subject to Add" />
 
     <EditText
-        android:id="@+id/editText8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
-
-    <EditText
-        android:id="@+id/editText9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
-
-    <EditText
-        android:id="@+id/editText10"
+        android:id="@+id/cs_reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT" />
+
 </LinearLayout>

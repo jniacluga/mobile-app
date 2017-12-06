@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -46,6 +49,14 @@ public class HomeFragment extends Fragment {
     TextView txtVwThesisDissertation;
     TextView txtVwGraduation;
 
+    TextView txtVwIdentificationNumber;
+
+    LinearLayout layoutStudentStatus;
+    LinearLayout layoutCompletionSummary;
+
+    TableLayout tblCompletionDetails;
+    TableRow rowProgram;
+
     Button btnLogout;
 
     SharedPreferences sharedPreferences;
@@ -53,16 +64,9 @@ public class HomeFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     public HomeFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment getInstance() {
         HomeFragment fragment = new HomeFragment();
 
@@ -78,7 +82,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         sharedPreferences = getContext().getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
@@ -95,6 +99,13 @@ public class HomeFragment extends Fragment {
         txtVwComprehensiveExam = (TextView) view.findViewById(R.id.txtVwComprehensiveExam);
         txtVwThesisDissertation = (TextView) view.findViewById(R.id.txtVwThesisDissertation);
         txtVwGraduation = (TextView) view.findViewById(R.id.txtVwGraduation);
+
+        txtVwIdentificationNumber = (TextView) view.findViewById(R.id.txtVwIdentificationNumber);
+
+        layoutStudentStatus = (LinearLayout) view.findViewById(R.id.layoutStudentStatus);
+        layoutCompletionSummary = (LinearLayout) view.findViewById(R.id.layoutCompletionSummary);
+        tblCompletionDetails = (TableLayout) view.findViewById(R.id.tblCompletionDetails);
+        rowProgram = (TableRow) view.findViewById(R.id.rowProgram);
 
         btnLogout = (Button) view.findViewById(R.id.logout);
 
@@ -115,55 +126,65 @@ public class HomeFragment extends Fragment {
     private void initializeViews() {
 
         txtVwStudentNumber.setText(sharedPreferences.getString("sourceId", ""));
-        txtVwStatus.setText(sharedPreferences.getString("status", ""));
         txtVwFirstName.setText(sharedPreferences.getString("firstName", ""));
-        txtVwMiddleName.setText(sharedPreferences.getString("middleName", ""));
+        txtVwMiddleName.setText(sharedPreferences.getString("middleName", "").equals("") ? "-" : sharedPreferences.getString("middleName", ""));
         txtVwLastName.setText(sharedPreferences.getString("lastName", ""));
-        txtVwProgram.setText(sharedPreferences.getString("programDesc", ""));
+        txtVwIdentificationNumber.setText("Faculty Number");
 
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        if (sharedPreferences.getString("role", "").equals("STUDENT")) {
+            txtVwIdentificationNumber.setText("Student Number");
+            txtVwStatus.setText(sharedPreferences.getString("status", ""));
+            txtVwProgram.setText(sharedPreferences.getString("programDesc", ""));
+            layoutStudentStatus.setVisibility(View.VISIBLE);
+            rowProgram.setVisibility(View.VISIBLE);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, getResources().getString(R.string.web_server) +
-                getResources().getString(R.string.load_home), new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+            RequestQueue queue = Volley.newRequestQueue(getContext());
 
-                        if (!response.equals("\r\n\"\"")) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, getResources().getString(R.string.web_server) +
+                    getResources().getString(R.string.load_home), new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
 
-                            try {
+                            if (!response.equals("\r\n\"\"")) {
 
-                                JSONObject obj = new JSONArray(response).getJSONObject(1);
+                                try {
 
-                                txtVwTimeLeft.setText("Time left in residency: " + obj.getString("timeLeft"));
-                                txtVwCompletedUnits.setText(obj.getString("completedUnits"));
-                                txtVwComprehensiveExam.setText(obj.getString("comprehensiveExam"));
-                                txtVwThesisDissertation.setText(obj.getString("thesisDissertation"));
-                                txtVwGraduation.setText(obj.getString("graduation"));
+                                    JSONObject obj = new JSONArray(response).getJSONObject(0);
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                    txtVwTimeLeft.setText("Time left in residency: " + obj.getString("timeLeft"));
+                                    txtVwCompletedUnits.setText(obj.getString("completedUnits"));
+                                    txtVwComprehensiveExam.setText(obj.getString("comprehensiveExam"));
+                                    txtVwThesisDissertation.setText(obj.getString("thesisDissertation"));
+                                    txtVwGraduation.setText(obj.getString("graduation"));
+
+                                    layoutCompletionSummary.setVisibility(View.VISIBLE);
+                                    tblCompletionDetails.setVisibility(View.VISIBLE);
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            } else {
+
                             }
-
-                        } else {
-
                         }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("LOGIN", error.toString());
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("LOGIN", error.toString());
+                }
             }
-        }
-        ){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("studentNumber", sharedPreferences.getString("sourceId", ""));
-                return params;
-            }
-        };
+            ){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("studentNumber", sharedPreferences.getString("sourceId", ""));
+                    return params;
+                }
+            };
 
-        queue.add(stringRequest);
+            queue.add(stringRequest);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

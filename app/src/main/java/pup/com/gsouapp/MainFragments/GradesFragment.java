@@ -99,8 +99,8 @@ public class GradesFragment extends Fragment
 
                     JSONObject obj = arr.getJSONObject(i);
 
-                    gradePerSySem.setSy(obj.getString("sy"));
-                    gradePerSySem.setSem(obj.getString("sem"));
+                    gradePerSySem.setSySem(obj.getString("sySem"));
+//                    gradePerSySem.setSem(obj.getString("sem"));
 
                     grade = new Grade(obj.getString("subjectCode"),
                             obj.getString("description"),

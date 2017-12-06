@@ -179,42 +179,46 @@ public class ThesisDissertationFragment extends Fragment {
 
                     try {
 
-                        evaluators.clear();
-                        defenseList.clear();
+                        if (evaluators != null && defenseList != null) {
 
-                        JSONArray arr = new JSONArray(response);
-                        Evaluator evaluator;
-                        Defense defense = new Defense();
-                        Double totalPayment = 0D;
-                        String level = "";
+                            evaluators.clear();
+                            defenseList.clear();
 
-                        for (int i = 0; i < arr.length(); i++) {
-                            JSONObject obj = arr.getJSONObject(i);
+                            JSONArray arr = new JSONArray(response);
+                            Evaluator evaluator;
+                            Defense defense = new Defense();
+                            Double totalPayment = 0D;
+                            String level = "";
 
-                            totalPayment += Double.parseDouble(obj.getString("payment"));
+                            for (int i = 0; i < arr.length(); i++) {
+                                JSONObject obj = arr.getJSONObject(i);
 
-                            defense.setLevel(obj.getString("level"));
-                            defense.setDateTime(obj.getString("dateTime"));
-                            defense.setDay(obj.getString("day"));
-                            defense.setStatus(obj.getString("status"));
+                                totalPayment += Double.parseDouble(obj.getString("payment"));
 
-                            evaluator = new Evaluator(obj.getString("evaluatorType"),
-                                    obj.getString("evaluator"),
-                                    Double.parseDouble(obj.getString("payment")));
-                            evaluators.add(evaluator);
+                                defense.setLevel(obj.getString("level"));
+                                defense.setDateTime(obj.getString("dateTime"));
+                                defense.setDay(obj.getString("day"));
+                                defense.setStatus(obj.getString("status"));
 
-                            if (!level.equals("") && (!obj.getString("level").equals(level) || i == arr.length() - 1)) {
-                                defense.setTotalPayment(totalPayment);
-                                defense.setEvaluators(evaluators);
+                                evaluator = new Evaluator(obj.getString("evaluatorType"),
+                                        obj.getString("evaluator"),
+                                        Double.parseDouble(obj.getString("payment")));
+                                evaluators.add(evaluator);
 
-                                defenseList.add(defense);
+                                if (!level.equals("") && (!obj.getString("level").equals(level) || i == arr.length() - 1)) {
+                                    defense.setTotalPayment(totalPayment);
+                                    defense.setEvaluators(evaluators);
 
-                                totalPayment = 0D;
-                                evaluators = null;
-                                defense = new Defense();
+                                    defenseList.add(defense);
+
+                                    totalPayment = 0D;
+                                    evaluators = null;
+                                    defense = new Defense();
+                                }
+
+                                level = obj.getString("level");
                             }
 
-                            level = obj.getString("level");
                         }
 
                     } catch (JSONException e) {

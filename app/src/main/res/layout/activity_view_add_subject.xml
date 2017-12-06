@@ -12,8 +12,7 @@
     <TextView
         android:id="@+id/view_as_number_of_subjects"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Number of Subjects" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/view_as_list_of_subjects"
@@ -26,5 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Reason" />
+
+    <include layout="@layout/general_service_application_buttons" />
 
 </LinearLayout>
