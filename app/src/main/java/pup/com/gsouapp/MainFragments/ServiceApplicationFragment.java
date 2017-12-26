@@ -61,7 +61,7 @@ public class ServiceApplicationFragment extends Fragment {
 
     }
 
-    public static ServiceApplicationFragment newInstance() {
+    public static ServiceApplicationFragment getInstance() {
         ServiceApplicationFragment fragment = new ServiceApplicationFragment();
         return fragment;
     }

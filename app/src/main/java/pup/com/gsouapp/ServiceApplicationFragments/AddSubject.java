@@ -92,7 +92,11 @@ public class AddSubject extends Fragment
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callToServer();
+                if (validateAddSubject()) {
+                    callToServer();
+                } else {
+                    // TODO Toast to tell what should be done
+                }
             }
         });
     }
@@ -116,6 +120,15 @@ public class AddSubject extends Fragment
         params.put("reason", reason.getText().toString());
 
         AppToServer.sendRequest(getContext(), Urls.ADD_SUBJECT + Urls.SUBMIT, this, params);
+    }
+
+    private boolean validateAddSubject() {
+
+        if (reason.getText().toString().equals("") || commaSeparatedValues.size() < 1) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override

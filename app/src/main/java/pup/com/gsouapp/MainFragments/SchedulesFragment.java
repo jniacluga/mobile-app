@@ -51,7 +51,9 @@ public class SchedulesFragment extends Fragment {
     List<Semester> semesterList = new ArrayList<>();
     List<Sy> syList = new ArrayList<>();
 
-    List<Schedule> sundaySchedules = new ArrayList<>();
+    List<Schedule> schedules = new ArrayList<>();
+
+    /*List<Schedule> sundaySchedules = new ArrayList<>();
     List<Schedule> mondaySchedules = new ArrayList<>();
     List<Schedule> tuesdaySchedules = new ArrayList<>();
     List<Schedule> wednesdaySchedules = new ArrayList<>();
@@ -65,7 +67,7 @@ public class SchedulesFragment extends Fragment {
     Button btnWednesday;
     Button btnThursday;
     Button btnFriday;
-    Button btnSaturday;
+    Button btnSaturday;*/
 
     View view;
 
@@ -97,21 +99,23 @@ public class SchedulesFragment extends Fragment {
 
         queue = Volley.newRequestQueue(getContext());
 
-        spinnerSy = (Spinner) view.findViewById(R.id.spinnerSchoolYear);
-        spinnerSem = (Spinner) view.findViewById(R.id.spinnerSemester);
+        /*spinnerSy = (Spinner) view.findViewById(R.id.spinnerSchoolYear);
+        spinnerSem = (Spinner) view.findViewById(R.id.spinnerSemester);*/
 
-        btnSunday = (Button) view.findViewById(R.id.btnSunday);
+        /*btnSunday = (Button) view.findViewById(R.id.btnSunday);
         btnMonday = (Button) view.findViewById(R.id.btnMonday);
         btnTuesday = (Button) view.findViewById(R.id.btnTuesday);
         btnWednesday = (Button) view.findViewById(R.id.btnWednesday);
         btnThursday = (Button) view.findViewById(R.id.btnThursday);
         btnFriday = (Button) view.findViewById(R.id.btnFriday);
-        btnSaturday = (Button) view.findViewById(R.id.btnSaturday);
+        btnSaturday = (Button) view.findViewById(R.id.btnSaturday);*/
 
-        getSchoolYear();
-        getSemester();
+        loadSchedule();
 
-        spinnerSem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*getSchoolYear();
+        getSemester();*/
+
+        /*spinnerSem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 loadSchedule();
@@ -133,9 +137,9 @@ public class SchedulesFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
 
-        btnSunday.setOnClickListener(new View.OnClickListener() {
+       /* btnSunday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bindSchedule(sundaySchedules);
@@ -182,7 +186,7 @@ public class SchedulesFragment extends Fragment {
             public void onClick(View v) {
                 bindSchedule(saturdaySchedules);
             }
-        });
+        });*/
 
         return view;
     }
@@ -317,13 +321,13 @@ public class SchedulesFragment extends Fragment {
 
                     try {
 
-                        sundaySchedules.clear();
-                        mondaySchedules.clear();
-                        tuesdaySchedules.clear();
-                        wednesdaySchedules.clear();
-                        thursdaySchedules.clear();
-                        fridaySchedules.clear();
-                        saturdaySchedules.clear();
+//                        sundaySchedules.clear();
+//                        mondaySchedules.clear();
+//                        tuesdaySchedules.clear();
+//                        wednesdaySchedules.clear();
+//                        thursdaySchedules.clear();
+//                        fridaySchedules.clear();
+//                        saturdaySchedules.clear();
 
                         JSONArray arr = new JSONArray(response);
 
@@ -343,34 +347,10 @@ public class SchedulesFragment extends Fragment {
                                 obj.getString("sectionCode")
                             );
 
-                            switch(obj.getString("day")) {
-                                case SUNDAY:
-                                    sundaySchedules.add(schedule);
-                                    break;
-                                case MONDAY:
-                                    mondaySchedules.add(schedule);
-                                    break;
-                                case TUESDAY:
-                                    tuesdaySchedules.add(schedule);
-                                    break;
-                                case WEDNESDAY:
-                                    wednesdaySchedules.add(schedule);
-                                    break;
-                                case THURSDAY:
-                                    thursdaySchedules.add(schedule);
-                                    break;
-                                case FRIDAY:
-                                    fridaySchedules.add(schedule);
-                                    break;
-                                case SATURDAY:
-                                    saturdaySchedules.add(schedule);
-                                    break;
-                                default:
-                                    break;
-                            }
+                            schedules.add(schedule);
                         }
 
-                        bindSchedule(sundaySchedules);
+                        bindSchedule(schedules);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -390,10 +370,10 @@ public class SchedulesFragment extends Fragment {
                 SharedPreferences sharedPreferences = getContext().getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
                 params.put("studentNumber", sharedPreferences.getString("sourceId", ""));
 
-                Sy sy = (Sy) spinnerSy.getSelectedItem();
-                Semester semester =  (Semester) spinnerSem.getSelectedItem();
-                params.put("sy", sy.getId().toString());
-                params.put("sem", semester.getId().toString());
+//                Sy sy = (Sy) spinnerSy.getSelectedItem();
+//                Semester semester =  (Semester) spinnerSem.getSelectedItem();
+                params.put("sy", "1" /*sy.getId().toString()*/);
+                params.put("sem", "3" /*semester.getId().toString()*/);
 
                 return params;
             }
@@ -431,16 +411,6 @@ public class SchedulesFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

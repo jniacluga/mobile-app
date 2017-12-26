@@ -58,13 +58,13 @@ public class SchedulesAdapter extends BaseAdapter {
 
         Schedule schedule = myList.get(position);
 
-        mViewHolder.txtVwSy.setText(schedule.getSy());
-        mViewHolder.txtVwSem.setText(schedule.getSem());
+//        mViewHolder.txtVwSy.setText(schedule.getSy());
+//        mViewHolder.txtVwSem.setText(schedule.getSem());
         mViewHolder.txtVwDay.setText(schedule.getDay());
-        mViewHolder.txtVwStartTime.setText(schedule.getStartTime());
-        mViewHolder.txtVwEndTime.setText(schedule.getEndTime());
-        mViewHolder.txtVwSubjectCode.setText(schedule.getSubjectCode());
-        mViewHolder.txtVwDescription.setText(schedule.getDescription());
+        mViewHolder.txtVwTime.setText(schedule.getStartTime() + " - " + schedule.getEndTime());
+//        mViewHolder.txtVwEndTime.setText(schedule.getEndTime());
+        mViewHolder.txtVwSubject.setText(schedule.getSubjectCode() + " " + schedule.getDescription());
+//        mViewHolder.txtVwDescription.setText(schedule.getDescription());
         mViewHolder.txtVwFaculty.setText(schedule.getFaculty());
         mViewHolder.txtVwRoom.setText(schedule.getRoom());
         mViewHolder.txtVwSectionCode.setText(schedule.getSectionCode());
@@ -74,25 +74,25 @@ public class SchedulesAdapter extends BaseAdapter {
     }
 
     private class ScheduleViewHolder {
-        TextView txtVwSy;
-        TextView txtVwSem;
+//        TextView txtVwSy;
+//        TextView txtVwSem;
         TextView txtVwDay;
-        TextView txtVwStartTime;
-        TextView txtVwEndTime;
-        TextView txtVwSubjectCode;
-        TextView txtVwDescription;
+        TextView txtVwTime;
+//        TextView txtVwEndTime;
+        TextView txtVwSubject;
+//        TextView txtVwDescription;
         TextView txtVwFaculty;
         TextView txtVwRoom;
         TextView txtVwSectionCode;
 
         public ScheduleViewHolder(View item) {
-            txtVwSy = (TextView) item.findViewById(R.id.txtVwSy);
-            txtVwSem = (TextView) item.findViewById(R.id.txtVwSem);
+//            txtVwSy = (TextView) item.findViewById(R.id.txtVwSy);
+//            txtVwSem = (TextView) item.findViewById(R.id.txtVwSem);
             txtVwDay = (TextView) item.findViewById(R.id.txtVwDay);
-            txtVwStartTime = (TextView) item.findViewById(R.id.txtVwStartTime);
-            txtVwEndTime = (TextView) item.findViewById(R.id.txtVwEndTime);
-            txtVwSubjectCode = (TextView) item.findViewById(R.id.txtVwSubjectCode);
-            txtVwDescription = (TextView) item.findViewById(R.id.txtVwDescription);
+            txtVwTime = (TextView) item.findViewById(R.id.txtVwTime);
+//            txtVwEndTime = (TextView) item.findViewById(R.id.txtVwEndTime);
+            txtVwSubject = (TextView) item.findViewById(R.id.txtVwSubject);
+//            txtVwDescription = (TextView) item.findViewById(R.id.txtVwDescription);
             txtVwFaculty = (TextView) item.findViewById(R.id.txtVwFaculty);
             txtVwRoom = (TextView) item.findViewById(R.id.txtVwRoom);
             txtVwSectionCode = (TextView) item.findViewById(R.id.txtVwSectionCode);

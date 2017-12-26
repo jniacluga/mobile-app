@@ -121,7 +121,9 @@ public class AcademicRecords extends Fragment
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callToServer();
+                if (validateAcademicRecordsForm()) {
+                    callToServer();
+                }
             }
         });
     }
@@ -194,6 +196,29 @@ public class AcademicRecords extends Fragment
         }
 
         return stringBuilder.toString();
+    }
+
+    private boolean validateAcademicRecordsForm() {
+
+        if (officialTranscriptOfRecordsChkBx.isChecked()) {
+            if (officialTranscriptOfRecordsSpnr.getSelectedItem().toString().equals(COPY_FOR) &&
+                    officialTranscriptOfRecordsOther.getText().toString().equals("")) {
+                return false;
+            }
+        }
+
+        if (certificationChkBx.isChecked() && certificationSpnr.getSelectedItem().toString().equals("")) {
+            return false;
+        }
+
+        if (certifiedTrueCopyChkBx.isChecked()) {
+            if (certifiedTrueCopySpnr.getSelectedItem().toString().equals(OTHERS) &&
+                    certifiedTrueCopyOther.getText().toString().equals("")) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override

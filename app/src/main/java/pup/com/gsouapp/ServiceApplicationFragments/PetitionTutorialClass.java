@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -43,6 +44,8 @@ public class PetitionTutorialClass extends Fragment
     private OnFragmentInteractionListener mListener;
     private View view;
 
+    private static PetitionTutorialClass petitionTutorialClass;
+
     Spinner subjectToPetition;
     RadioButton rdoJoin;
     RadioButton rdoCreate;
@@ -54,10 +57,14 @@ public class PetitionTutorialClass extends Fragment
 
     private String methodName;
 
+    private Long subjectToPetitionId;
+
     Map<String, String> params;
     SharedPreferences sharedPreferences;
 
     List<Petition> petitions = new ArrayList<>();
+    List<Student> students = new ArrayList<>();
+    List<Subject> subjects = new ArrayList<>();
 
     List<String> commaSeparatedValues;
 
@@ -69,9 +76,11 @@ public class PetitionTutorialClass extends Fragment
 
     public PetitionTutorialClass() { }
 
-    public static PetitionTutorialClass newInstance(String param1, String param2) {
-        PetitionTutorialClass fragment = new PetitionTutorialClass();
-        return fragment;
+    public static PetitionTutorialClass getInstance() {
+        if (petitionTutorialClass == null) {
+            petitionTutorialClass = new PetitionTutorialClass();
+        }
+        return petitionTutorialClass;
     }
 
     @Override
@@ -85,7 +94,13 @@ public class PetitionTutorialClass extends Fragment
         view = inflater.inflate(R.layout.fragment_petition_tutorial_class, container, false);
         sharedPreferences = getContext().getSharedPreferences("LoginCredentials", Context.MODE_PRIVATE);
         bindViews();
+        loadSubject();
         return view;
+    }
+
+    private void loadSubject() {
+        methodName = Urls.GET_SUBJECTS_NOT_OFFERED_AND_NOT_TAKEN_OR_ENROLLED;
+        callToServer();
     }
 
     private void bindViews() {
@@ -102,7 +117,14 @@ public class PetitionTutorialClass extends Fragment
         subjectToPetition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                methodName = Urls.GET_PETITIONS_BY_SUBJECT;
+                subjectToPetitionId = ((Subject)subjectToPetition.getSelectedItem()).getSubjectId();
+
+                if (rdoJoin.isChecked()) {
+                    methodName = Urls.GET_PETITIONS_BY_SUBJECT;
+                } else {
+                    methodName = Urls.GET_STUDENTS_WHO_REQUIRE_THE_SUBJECT;
+                }
+
                 callToServer();
             }
 
@@ -115,6 +137,12 @@ public class PetitionTutorialClass extends Fragment
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (rdoJoin.isChecked()) {
+                    methodName = Urls.JOIN;
+                } else {
+                    methodName = Urls.SUBMIT;
+                }
+
                 callToServer();
             }
         });
@@ -169,6 +197,44 @@ public class PetitionTutorialClass extends Fragment
         }
     }
 
+    private void loadStudents(String response) {
+
+    }
+
+    private void loadSubjects(String response) {
+        subjects.clear();
+
+        if (!response.equals("\r\n\"\"")) {
+            try {
+                JSONArray arr = new JSONArray(response);
+
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject obj = arr.getJSONObject(i);
+
+                    Subject subject = new Subject(
+                            obj.getLong("subjectId"),
+                            obj.getString("subjectDisplay"),
+                            obj.getString("code"),
+                            obj.getString("description"),
+                            obj.getInt("units"),
+                            obj.getString("sy"),
+                            obj.getString("semester")
+                    );
+
+                    subjects.add(subject);
+                }
+
+                ArrayAdapter<Subject> adapter = new ArrayAdapter<Subject>(getContext(), R.layout.support_simple_spinner_dropdown_item, subjects);
+                adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
+                subjectToPetition.setAdapter(adapter);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void bindPetitionList() {
 
     }
@@ -183,16 +249,6 @@ public class PetitionTutorialClass extends Fragment
         }
     }
 
-    public void showDialogFragment() {
-        if (!checklist.isAdded()) {
-            checklist.setTargetFragment(this, 0);
-            checklist.setMethodName(Urls.OVERLOAD_SUBJECT + Urls.GET_SUBJECTS_OFFERED_BUT_NOT_TAKEN_OR_ENROLLED);
-            checklist.show(getFragmentManager(), "");
-        } else {
-            checklist.getDialog().show();
-        }
-    }
-
     @Override
     public void callToServer() {
         params = new HashMap<>();
@@ -201,9 +257,11 @@ public class PetitionTutorialClass extends Fragment
 
         if (methodName.equals(Urls.SUBMIT)) {
             params.put("subject", subjectToPetition.getSelectedItem().toString());
-            params.put("students", TextUtils.join(",", commaSeparatedValues));
+            params.put("students", "");
         } else if (methodName.equals(Urls.JOIN)) {
             params.put("petitionId", String.valueOf(petitionId));
+        } else {
+            params.put("subjectId", subjectToPetitionId.toString());
         }
 
         AppToServer.sendRequest(getContext(), Urls.PETITION_TUTORIAL + methodName, this, params);
@@ -213,6 +271,10 @@ public class PetitionTutorialClass extends Fragment
     public void handleResponse(String response) {
         if (methodName.equals(Urls.GET_PETITIONS_BY_SUBJECT)) {
             loadPetitions(response);
+        } else if (methodName.equals(Urls.GET_STUDENTS_WHO_REQUIRE_THE_SUBJECT)) {
+            loadStudents(response);
+        } else if (methodName.equals(Urls.GET_SUBJECTS_NOT_OFFERED_AND_NOT_TAKEN_OR_ENROLLED)) {
+            loadSubjects(response);
         } else if (methodName.equals(Urls.SUBMIT)) {
             afterSubmission(response);
         }

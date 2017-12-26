@@ -135,6 +135,8 @@ public class ChangeSubject extends Fragment
         AppToServer.sendRequest(getContext(), Urls.CHANGE_SUBJECT + Urls.SUBMIT, this, params);
     }
 
+
+
     @Override
     public void handleResponse(String response) {
         if (!response.equals("\r\n\"\"")) {
